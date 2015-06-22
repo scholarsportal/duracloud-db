@@ -1,0 +1,11 @@
+**/target
+*maven-eclipse.xml
+*.project
+*.settings
+*.classpath
+*.DS_Store
+*.log
+*.iml
+*.ipr
+*.iws
+target/

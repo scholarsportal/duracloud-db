@@ -53,7 +53,7 @@ public class StorageProviderAccount extends ProviderAccount {
     /**
      * The max GBs of storage allowable for the account.
      */
-    private int storageLimit;
+    private int storageLimit = 1;
     
     public StorageProviderType getProviderType() {
         return providerType;

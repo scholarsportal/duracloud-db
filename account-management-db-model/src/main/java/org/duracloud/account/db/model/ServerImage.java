@@ -56,6 +56,22 @@ public class ServerImage extends BaseEntity {
      */
     private String iamRole;
 
+    /**
+     * The file path to the AWS CloudFront Key 
+     */
+    private String cfKeyPath; 
+
+    /**
+     * The AWS CloudFront Account Id
+     */
+    private String cfAccountId; 
+
+    /**
+     * The AWS CloudFront Key Id
+     */
+    private String cfKeyId; 
+
+    
     public String getProviderImageId() {
         return providerImageId;
     }
@@ -103,4 +119,30 @@ public class ServerImage extends BaseEntity {
     public void setIamRole(String iamRole) {
         this.iamRole = iamRole;
     }
+    
+    public String getCfKeyPath() {
+        return cfKeyPath;
+    }
+
+    public void setCfKeyPath(String cfKeyPath) {
+        this.cfKeyPath = cfKeyPath;
+    }
+
+    public String getCfAccountId() {
+        return cfAccountId;
+    }
+
+    public void setCfAccountId(String cfAccountId) {
+        this.cfAccountId = cfAccountId;
+    }
+
+    public String getCfKeyId() {
+        return cfKeyId;
+    }
+
+    public void setCfKeyId(String cfKeyId) {
+        this.cfKeyId = cfKeyId;
+    }
+
+
 }

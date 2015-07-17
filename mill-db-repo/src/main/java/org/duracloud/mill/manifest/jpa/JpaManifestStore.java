@@ -224,7 +224,6 @@ public class JpaManifestStore implements
     }
 
     @Override
-    @Transactional(readOnly = true, value=MillJpaRepoConfig.TRANSACTION_MANAGER_BEAN)
     public Iterator<ManifestItem> getItems(final String account,
                                            final String storeId,
                                            final String spaceId) {

@@ -13,7 +13,7 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.duracloud.mill.manifest.ManifestStore;
 import org.duracloud.mill.manifest.jpa.JpaManifestStore;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -60,6 +60,12 @@ public class MillJpaRepoConfig {
                                                System.getProperty("mill.db.name", "mill")));
         dataSource.setUsername(System.getProperty("mill.db.user", "mill"));
         dataSource.setPassword(System.getProperty("mill.db.pass", "password"));
+	dataSource.setInitialSize(5);
+        dataSource.setMaxIdle(5);
+        dataSource.setMaxTotal(50);
+        dataSource.setMaxConnLifetimeMillis(14400);
+        dataSource.setTimeBetweenEvictionRunsMillis(60*1000*15);
+
         return dataSource;
     }
 

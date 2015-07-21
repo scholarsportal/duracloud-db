@@ -48,6 +48,18 @@ public interface ManifestStore {
                                            String storeId,
                                            String spaceId);
 
+    /**
+     * Provides a method or ordering the results
+     * @param account
+     * @param storeId
+     * @param spaceId
+     * @param ordered
+     * @return
+     */
+    public Iterator<ManifestItem> getItems(String account,
+                                           String storeId,
+                                           String spaceId,
+                                           boolean ordered);
 
     /**
      * 

@@ -227,16 +227,34 @@ public class JpaManifestStore implements
     public Iterator<ManifestItem> getItems(final String account,
                                            final String storeId,
                                            final String spaceId) {
+        return getItems(account, storeId, spaceId, true);
+    }
+    
+    @Override
+    public Iterator<ManifestItem> getItems(final String account,
+                                           final String storeId,
+                                           final String spaceId, 
+					   final boolean ordered) {
         JpaIteratorSource<JpaManifestItemRepo, ManifestItem> source = 
-            new JpaIteratorSource<JpaManifestItemRepo, ManifestItem>(this.manifestItemRepo) {
+            new JpaIteratorSource<JpaManifestItemRepo, ManifestItem>(this.manifestItemRepo, 10000) {
                 @Override
                 protected Page<ManifestItem> getNextPage(Pageable pageable,
                                                          JpaManifestItemRepo repo) {
-                    return manifestItemRepo
+                    
+                    if(ordered){
+                        return manifestItemRepo
                             .findByAccountAndStoreIdAndSpaceIdAndDeletedFalseOrderByContentIdAsc(account,
                                                                                        storeId,
                                                                                        spaceId,
                                                                                        pageable);
+                    }else{
+                        return manifestItemRepo
+                            .findByAccountAndStoreIdAndSpaceIdAndDeletedFalse(account,
+                                                                                       storeId,
+                                                                                       spaceId,
+                                                                                       pageable);
+
+                    }
                 }
             };
         

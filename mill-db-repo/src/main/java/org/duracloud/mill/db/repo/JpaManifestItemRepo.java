@@ -38,6 +38,20 @@ public interface JpaManifestItemRepo extends
                                                                       Pageable pageable);
 
     /**
+     * Same as above produces an unordered list
+     * @param account
+     * @param storeId
+     * @param spaceId
+     * @param pageable
+     * @return
+     */
+    Page<ManifestItem>
+    findByAccountAndStoreIdAndSpaceIdAndDeletedFalse(String account,
+                                                     String storeId,
+                                                     String spaceId,
+                                                     Pageable pageable);
+
+    /**
      * @param account
      * @param storeId
      * @param spaceId

@@ -5,7 +5,7 @@
  *
  *     http://duracloud.org/license/
  */
-package org.duracloud.mill.db.util;
+package org.duracloud.common.collection.jpa;
 
 import java.util.Collection;
 

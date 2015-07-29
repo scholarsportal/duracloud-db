@@ -12,11 +12,11 @@ import java.util.Date;
 import java.util.Iterator;
 
 import org.duracloud.common.collection.StreamingIterator;
+import org.duracloud.common.collection.jpa.JpaIteratorSource;
 import org.duracloud.common.db.error.NotFoundException;
 import org.duracloud.mill.db.model.ManifestItem;
 import org.duracloud.mill.db.repo.JpaManifestItemRepo;
 import org.duracloud.mill.db.repo.MillJpaRepoConfig;
-import org.duracloud.mill.db.util.JpaIteratorSource;
 import org.duracloud.mill.manifest.ManifestItemWriteException;
 import org.duracloud.mill.manifest.ManifestStore;
 import org.slf4j.Logger;

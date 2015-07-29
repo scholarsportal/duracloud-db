@@ -15,11 +15,12 @@ import org.duracloud.mill.auditor.AuditLogItem;
 import org.duracloud.mill.auditor.AuditLogStore;
 import org.duracloud.mill.auditor.AuditLogWriteFailedException;
 import org.duracloud.common.collection.StreamingIterator;
+import org.duracloud.common.collection.jpa.JpaIteratorSource;
 import org.duracloud.common.db.error.NotFoundException;
 import org.duracloud.mill.db.model.JpaAuditLogItem;
 import org.duracloud.mill.db.repo.JpaAuditLogItemRepo;
 import org.duracloud.mill.db.repo.MillJpaRepoConfig;
-import org.duracloud.mill.db.util.JpaIteratorSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

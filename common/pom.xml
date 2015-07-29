@@ -4,13 +4,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.duracloud.db</groupId>
   <artifactId>common</artifactId>
-  <version>3.3.4</version>
+  <version>3.4.0-SNAPSHOT</version>
   <name>DuraCloud DB Common</name>
 
   <parent>
     <groupId>org.duracloud.db</groupId>
     <artifactId>db</artifactId>    
-    <version>3.3.4</version>
+    <version>3.4.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 

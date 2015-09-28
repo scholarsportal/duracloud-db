@@ -36,13 +36,6 @@ public class StorageProviderAccount extends ProviderAccount {
     @Enumerated(EnumType.STRING)
     private StorageProviderType providerType;
 
-    /**
-     * Flag indicating the default storage preference for all content is
-     * reduced redundancy (or equivalent lower-priced option at non-Amazon
-     * providers.)
-     */
-    private boolean rrs;
-
     @ElementCollection(fetch=FetchType.EAGER)
     @MapKeyColumn (name="map_key")
     @CollectionTable(name ="storage_provider_account_properties",
@@ -63,14 +56,6 @@ public class StorageProviderAccount extends ProviderAccount {
         this.providerType = providerType;
     }
 
-    public boolean isRrs() {
-        return rrs;
-    }
-
-    public void setRrs(boolean rrs) {
-        this.rrs = rrs;
-    }
-
     public Map<String,String> getProperties() {
         return properties;
     }
@@ -86,6 +71,5 @@ public class StorageProviderAccount extends ProviderAccount {
     public void setStorageLimit(int storageLimit) {
         this.storageLimit = storageLimit;
     }
-    
 
 }

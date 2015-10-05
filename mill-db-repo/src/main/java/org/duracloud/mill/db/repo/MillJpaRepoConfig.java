@@ -52,7 +52,7 @@ public class MillJpaRepoConfig {
     public BasicDataSource millRepoDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl(MessageFormat.format("jdbc:mysql://{0}:{1}/{2}?autoReconnect=true" +
+        dataSource.setUrl(MessageFormat.format("jdbc:mysql://{0}:{1}/{2}" +
         		                                "&characterEncoding=utf8" +
         		                                "&characterSetResults=utf8",
                                                System.getProperty("mill.db.host","localhost"),
@@ -65,6 +65,8 @@ public class MillJpaRepoConfig {
         dataSource.setMaxTotal(50);
         dataSource.setMaxConnLifetimeMillis(14400);
         dataSource.setTimeBetweenEvictionRunsMillis(60*1000*15);
+        dataSource.setTestOnBorrow(true);
+        dataSource.setValidationQuery("SELECT 1");
 
         return dataSource;
     }

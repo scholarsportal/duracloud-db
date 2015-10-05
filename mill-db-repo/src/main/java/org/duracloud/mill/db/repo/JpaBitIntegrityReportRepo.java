@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  */
 @Repository(value = "bitIntegrityReportRepo")
-@Transactional(readOnly=true, value=MillJpaRepoConfig.TRANSACTION_MANAGER_BEAN)
 public interface JpaBitIntegrityReportRepo
     extends JpaRepository<BitIntegrityReport, Long> {
 

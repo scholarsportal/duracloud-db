@@ -60,11 +60,6 @@ public class MillJpaRepoConfig {
                                                System.getProperty("mill.db.name", "mill")));
         dataSource.setUsername(System.getProperty("mill.db.user", "mill"));
         dataSource.setPassword(System.getProperty("mill.db.pass", "password"));
-	dataSource.setInitialSize(5);
-        dataSource.setMaxIdle(5);
-        dataSource.setMaxTotal(50);
-        dataSource.setMaxConnLifetimeMillis(14400);
-        dataSource.setTimeBetweenEvictionRunsMillis(60*1000*15);
         dataSource.setTestOnBorrow(true);
         dataSource.setValidationQuery("SELECT 1");
 

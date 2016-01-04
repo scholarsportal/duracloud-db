@@ -227,7 +227,7 @@ public class JpaManifestStore implements
     public Iterator<ManifestItem> getItems(final String account,
                                            final String storeId,
                                            final String spaceId) {
-        return getItems(account, storeId, spaceId, true);
+        return getItems(account, storeId, spaceId, false);
     }
     
     @Override

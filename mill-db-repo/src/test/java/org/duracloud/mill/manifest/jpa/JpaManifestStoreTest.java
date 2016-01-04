@@ -283,7 +283,7 @@ public class JpaManifestStoreTest extends JpaTestBase<ManifestItem> {
         int count = 10;
 
         Page<ManifestItem> page = setupPage(count);
-        expect(this.repo.findByAccountAndStoreIdAndSpaceIdAndDeletedFalseOrderByContentIdAsc(eq(account),
+        expect(this.repo.findByAccountAndStoreIdAndSpaceIdAndDeletedFalse(eq(account),
                                                                                    eq(storeId),
                                                                                    eq(spaceId),
                                                                                    capture(capture))).andReturn(page);

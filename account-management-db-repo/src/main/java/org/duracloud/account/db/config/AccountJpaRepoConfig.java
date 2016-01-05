@@ -17,6 +17,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -64,6 +65,7 @@ public class AccountJpaRepoConfig {
         return dataSource;
     }
 
+    @Primary
     @Bean(name=TRANSACTION_MANAGER_BEAN)
     public PlatformTransactionManager
         accountRepoTransactionManager(@Qualifier(ACCOUNT_REPO_ENTITY_MANAGER_FACTORY_BEAN) EntityManagerFactory entityManagerFactory) {

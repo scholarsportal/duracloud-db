@@ -44,7 +44,7 @@ public class JpaManifestStore implements
 
     @Override
     @Transactional(value = MillJpaRepoConfig.TRANSACTION_MANAGER_BEAN, propagation = Propagation.REQUIRES_NEW)
-    public void addUpdate(String account,
+    public boolean addUpdate(String account,
                       String storeId,
                       String spaceId,
                       String contentId,
@@ -85,55 +85,45 @@ public class JpaManifestStore implements
             
             if(item != null){
                 if(eventOutOfOrder(item, eventTimestamp)){
-                    return;
+                    return false;
                 }
 
                 //flip deleted flag if set to deleted
                 if(item.isDeleted()){
                     item.setDeleted(false);
-                    save = true;
                 }
                 String oldChecksum = item.getContentChecksum();
                 if(!oldChecksum.equals(contentChecksum)){
                     log.info("content checksum changed from {} to {}", oldChecksum, contentChecksum);
-                    save = true;
                 }
 
                 String oldMimetype = item.getContentMimetype();
                 if(!oldMimetype.equals(contentMimetype)){
                     log.info("content mimetype changed from {} to {}", oldMimetype, contentMimetype);
-                    save = true;
                 }
 
                 String oldSize = item.getContentSize();
                 if(!oldSize.equals(contentSize)){
                     log.info("content size changed from {} to {}", oldMimetype, contentSize);
-                    save = true;
                 }
 
                 action = "updated";
 
             }else{
-
                 item = new ManifestItem();
                 item.setAccount(account);
                 item.setStoreId(storeId);
                 item.setSpaceId(spaceId);
                 item.setContentId(contentId);
-                save = true;
             }
 
-            if(save){
-                item.setContentChecksum(contentChecksum);
-                item.setContentMimetype(contentMimetype);
-                item.setContentSize(contentSize);
-                item.setModified(eventTimestamp);
-                ManifestItem result = this.manifestItemRepo.saveAndFlush(item);
-                log.info("successfully {} {} to the jpa repo.", action, result);
-            }else{
-                log.info("no update necessary since no changes were detected for {}", item);
-            }
-
+            item.setContentChecksum(contentChecksum);
+            item.setContentMimetype(contentMimetype);
+            item.setContentSize(contentSize);
+            item.setModified(eventTimestamp);
+            ManifestItem result = this.manifestItemRepo.saveAndFlush(item);
+            log.info("successfully {} {} to the jpa repo.", action, result);
+            return true;
         } catch (Exception ex) {
             String message = "failed to write item: " + ex.getMessage();
             log.error(message);
@@ -146,7 +136,7 @@ public class JpaManifestStore implements
      */
     @Override
     @Transactional(value = MillJpaRepoConfig.TRANSACTION_MANAGER_BEAN, propagation = Propagation.REQUIRES_NEW)
-    public void flagAsDeleted(String account,
+    public boolean flagAsDeleted(String account,
                               String storeId,
                               String spaceId,
                               String contentId,
@@ -161,7 +151,7 @@ public class JpaManifestStore implements
             
             if(item != null){
                 if(eventOutOfOrder(item, eventTimestamp)){
-                    return;
+                    return false;
                 }
                 
                 if(item.isDeleted()){
@@ -195,7 +185,7 @@ public class JpaManifestStore implements
             item.setModified(eventTimestamp);
             ManifestItem result = this.manifestItemRepo.saveAndFlush(item);
             log.info("successfully processed flag as deleted: {}", result);
-
+            return true;
         } catch (Exception ex) {
             String message = "failed to flag item as deleted item: " + ex.getMessage();
             log.error(message);

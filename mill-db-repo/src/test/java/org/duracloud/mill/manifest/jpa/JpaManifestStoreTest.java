@@ -13,6 +13,8 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -64,14 +66,14 @@ public class JpaManifestStoreTest extends JpaTestBase<ManifestItem> {
         expect(repo.saveAndFlush(capture(capture))).andReturn(returnItem);
         replayAll();
         Date timestamp = new Date();
-        store.addUpdate(account,
+        assertTrue(store.addUpdate(account,
                         storeId,
                         spaceId,
                         contentId,
                         contentChecksum,
                         contentMimetype,
                         contentSize,
-                        timestamp);
+                        timestamp));
         ManifestItem item = capture.getValue();
         assertEquals(account, item.getAccount());
         assertEquals(storeId, item.getStoreId());
@@ -115,44 +117,17 @@ public class JpaManifestStoreTest extends JpaTestBase<ManifestItem> {
 
         expect(repo.saveAndFlush(returnItem)).andReturn(returnItem);
         replayAll();
-        store.addUpdate(account,
+        assertTrue(store.addUpdate(account,
                         storeId,
                         spaceId,
                         contentId,
                         contentChecksum,
                         contentMimetype,
                         contentSize,
-                        timestamp);
+                        timestamp));
     }
     
-    @Test
-    public void testUpdateIgnoredDueToUnchangedItem() throws ManifestItemWriteException {
-        createTestSubject();
-        Date timestamp = new Date();
-        ManifestItem returnItem = createMock(ManifestItem.class);
-        expect(returnItem.getModified()).andReturn(new Date(System.currentTimeMillis() - 1000));
-        
-        expect(returnItem.getContentChecksum()).andReturn(contentChecksum);
-        expect(returnItem.getContentMimetype()).andReturn(contentMimetype);
-        expect(returnItem.getContentSize()).andReturn(contentSize);
-
-        expect(returnItem.isDeleted()).andReturn(false);
-
-        expect(this.repo.findByAccountAndStoreIdAndSpaceIdAndContentId(account,
-                                                                       storeId,
-                                                                       spaceId,
-                                                                       contentId)).andReturn(returnItem);
-        replayAll();
-        store.addUpdate(account,
-                        storeId,
-                        spaceId,
-                        contentId,
-                        contentChecksum,
-                        contentMimetype,
-                        contentSize,
-                        timestamp);
-    }
-
+  
     @Test
     public void testIgnoreUpdateDueToOutOfOrderMessage() throws ManifestItemWriteException {
         createTestSubject();
@@ -166,14 +141,14 @@ public class JpaManifestStoreTest extends JpaTestBase<ManifestItem> {
                                                                        contentId)).andReturn(returnItem);
 
         replayAll();
-        store.addUpdate(account,
+        assertFalse(store.addUpdate(account,
                         storeId,
                         spaceId,
                         contentId,
                         contentChecksum,
                         contentMimetype,
                         contentSize,
-                        timestamp);
+                        timestamp));
     }
 
     @Test
@@ -194,7 +169,7 @@ public class JpaManifestStoreTest extends JpaTestBase<ManifestItem> {
 
         expect(repo.saveAndFlush(returnItem)).andReturn(returnItem);
         replayAll();
-        store.flagAsDeleted(account, storeId, spaceId, contentId, timestamp);
+        assertTrue(store.flagAsDeleted(account, storeId, spaceId, contentId, timestamp));
     }
 
     @Test
@@ -210,7 +185,7 @@ public class JpaManifestStoreTest extends JpaTestBase<ManifestItem> {
         expect(repo.saveAndFlush(capture(itemCapture))).andReturn(new ManifestItem());
         
         replayAll();
-        store.flagAsDeleted(account, storeId, spaceId, contentId, timestamp);
+        assertTrue(store.flagAsDeleted(account, storeId, spaceId, contentId, timestamp));
         
         ManifestItem item = itemCapture.getValue();
         

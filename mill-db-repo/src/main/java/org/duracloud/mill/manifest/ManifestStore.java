@@ -13,6 +13,8 @@ import java.util.Iterator;
 import org.duracloud.common.db.error.NotFoundException;
 import org.duracloud.mill.db.model.ManifestItem;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 /**
  * @author Daniel Bernstein
  *         Date: Sep 2, 2014
@@ -29,8 +31,9 @@ public interface ManifestStore {
      * @param contentMimetype 
      * @param timeStamp 
      * @throws ManifestItemWriteException
+     * @return true if the store was updated;  false if it was not (due to the update being out of order).
      */
-    public void addUpdate(String account,
+    public boolean addUpdate(String account,
              String storeId,
              String spaceId,
              String contentId,
@@ -82,8 +85,9 @@ public interface ManifestStore {
      * @param contentId
      * @param eventTimestamp
      * @throws ManifestItemWriteException 
+     * @return true if the store was updated;  false if it was not (due to the update being out of order).
      */
-    public void flagAsDeleted(String account,
+    public boolean flagAsDeleted(String account,
                        String storeId,
                        String spaceId,
                        String contentId,

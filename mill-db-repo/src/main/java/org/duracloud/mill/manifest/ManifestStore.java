@@ -98,7 +98,7 @@ public interface ManifestStore {
      * @param expiration
      * @return Count of items deleted.
      */
-    public Long purgeDeletedItemsBefore(Date expiration);
+    public int purgeDeletedItemsBefore(Date expiration);
 
     /**
      * 

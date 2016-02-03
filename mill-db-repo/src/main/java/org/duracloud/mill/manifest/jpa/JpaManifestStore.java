@@ -280,8 +280,8 @@ public class JpaManifestStore implements
      */
     @Override
     @Transactional(value = MillJpaRepoConfig.TRANSACTION_MANAGER_BEAN, propagation = Propagation.REQUIRES_NEW)
-    public Long purgeDeletedItemsBefore(Date expiration) {
-       return this.manifestItemRepo.deleteByDeletedTrueAndModifiedBefore(expiration);
+    public int purgeDeletedItemsBefore(Date expiration) {
+       return this.manifestItemRepo.deleteFirst50000ByDeletedTrueAndModifiedBefore(expiration);
     }
 
     @Override

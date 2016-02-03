@@ -13,6 +13,8 @@ import org.duracloud.mill.db.model.ManifestItem;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -67,7 +69,9 @@ public interface JpaManifestItemRepo extends
     /**
      * @param expiration
      */
-    Long deleteByDeletedTrueAndModifiedBefore(Date expiration);
+    @Modifying
+    @Query(nativeQuery=true,value="delete from manifest_item where deleted = true and modified < ?1 limit 50000")
+    int deleteFirst50000ByDeletedTrueAndModifiedBefore(Date expiration);
 
     void deleteByAccountAndStoreIdAndSpaceId(String account,
                                              String storeId,

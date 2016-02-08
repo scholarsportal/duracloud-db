@@ -184,6 +184,10 @@ public class DuracloudUser extends BaseEntity implements UserDetails {
                 }
             }
         }
+        
+        if(isRoot()){
+            roles.addAll(Role.ROLE_ROOT.getRoleHierarchy());
+        }
         return roles;
     }
 

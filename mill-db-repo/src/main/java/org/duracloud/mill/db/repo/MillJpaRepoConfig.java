@@ -16,10 +16,13 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.duracloud.mill.manifest.ManifestStore;
 import org.duracloud.mill.manifest.jpa.JpaManifestStore;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -49,39 +52,21 @@ public class MillJpaRepoConfig {
     public static final String ENTITY_MANAGER_FACTORY_BEAN =
         MILL_REPO_ENTITY_MANAGER_FACTORY_BEAN;
 
-    @Value("${mill.db.host ?:localhost}")
-    private String host;
+    @Autowired
+    private Environment env;
 
-    @Value("${mill.db.port ?: 3306}")
-    private int port;
-
-    @Value("${mill.db.name ?: mill}")
-    private String name;
-
-    @Value("${mill.db.user ?: user}")
-    private String user;
-
-    @Value("${mill.db.pass ?: pass}")
-    private String pass;
-    
-    @Value ("${hibernate.show_sql ?: false}")
-    private String showSql;
-    
-    @Value ("${hibernate.hbm2ddl.auto ?: validate}")
-    private String hbm2ddlAuto;
-    
     @Bean(name = MILL_REPO_DATA_SOURCE_BEAN, destroyMethod = "close")
     public BasicDataSource millRepoDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl(MessageFormat.format("jdbc:mysql://{0}:{1}/{2}"
-                                               + "?characterEncoding=utf8"
-                                               + "&characterSetResults=utf8",
-                                               host,
-                                               port,
-                                               name));
-        dataSource.setUsername(user);
-        dataSource.setPassword(pass);
+        dataSource.setUrl(MessageFormat.format("jdbc:mysql://{0}:{1}/{2}" +
+                    "?characterEncoding=utf8" +
+                    "&characxterSetResults=utf8",
+                   env.getProperty("mill.db.host", "localhost"),
+                   env.getProperty("mill.db.port", "3306"),
+                   env.getProperty("mill.db.name", "mill")));
+        dataSource.setUsername(env.getProperty("mill.db.user", "user"));
+        dataSource.setPassword(env.getProperty("mill.db.pass", "pass"));
 
         dataSource.setTestOnBorrow(true);
         dataSource.setValidationQuery("SELECT 1");
@@ -108,12 +93,15 @@ public class MillJpaRepoConfig {
         emf.setPackagesToScan("org.duracloud.mill");
 
         HibernateJpaVendorAdapter va = new HibernateJpaVendorAdapter();
-        va.setGenerateDdl(hbm2ddlAuto != null);
+        String hbm2ddlAuto = env.getProperty("hibernate.hbm2ddl.auto", "none");
+        String showSql = env.getProperty("hibernate.show_sql", "false");
+
+        va.setGenerateDdl(!"none".equals(hbm2ddlAuto));
         va.setDatabase(Database.MYSQL);
         emf.setJpaVendorAdapter(va);
         
         Properties props = new Properties();
-        if(hbm2ddlAuto != null){
+        if(!hbm2ddlAuto.equals("none")){
             props.setProperty("hibernate.hbm2ddl.auto", hbm2ddlAuto);
         }
         props.setProperty("hibernate.dialect",

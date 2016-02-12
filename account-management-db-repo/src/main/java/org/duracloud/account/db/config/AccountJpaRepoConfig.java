@@ -14,11 +14,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -48,26 +49,8 @@ public class AccountJpaRepoConfig {
     public static final String ENTITY_MANAGER_FACTORY_BEAN =
         ACCOUNT_REPO_ENTITY_MANAGER_FACTORY_BEAN;
     
-    @Value("${"+ConfigConstants.MC_DB_HOST+" ?:localhost}")
-    private String host;
-
-    @Value("${"+ConfigConstants.MC_DB_PORT+" ?:3306}")
-    private int port;
-
-    @Value("${"+ConfigConstants.MC_DB_NAME+" ?:ama}")
-    private String name;
-
-    @Value("${"+ConfigConstants.MC_DB_USER+" ?:user}")
-    private String user;
-
-    @Value("${"+ConfigConstants.MC_DB_PASS+" ?:pass}")
-    private String pass;
-    
-    @Value ("${hibernate.show_sql ?:false}")
-    private String showSql;
-    
-    @Value ("${hibernate.hbm2ddl.auto ?:validate}")
-    private String hbm2ddlAuto;
+    @Autowired
+    private Environment env;
     
     @Bean(name = ACCOUNT_REPO_DATA_SOURCE_BEAN, destroyMethod = "close")
     public BasicDataSource accountRepoDataSource() {
@@ -75,10 +58,12 @@ public class AccountJpaRepoConfig {
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl(MessageFormat.format("jdbc:mysql://{0}:{1}/{2}" +
         		                                "?characterEncoding=utf8" +
-        		                                "&characterSetResults=utf8",
-                                               host,port, name));
-        dataSource.setUsername(user);
-        dataSource.setPassword(pass);
+        		                                "&characxterSetResults=utf8",
+                                               env.getProperty(ConfigConstants.MC_DB_HOST, "localhost"),
+                                               env.getProperty(ConfigConstants.MC_DB_PORT, "3306"),
+                                               env.getProperty(ConfigConstants.MC_DB_NAME, "name")));
+        dataSource.setUsername(env.getProperty(ConfigConstants.MC_DB_USER, "user"));
+        dataSource.setPassword(env.getProperty(ConfigConstants.MC_DB_PASS, "pass"));
         dataSource.setTestOnBorrow(true);
         dataSource.setValidationQuery("SELECT 1");
         return dataSource;
@@ -105,12 +90,16 @@ public class AccountJpaRepoConfig {
 
 
         HibernateJpaVendorAdapter va = new HibernateJpaVendorAdapter();
-        va.setGenerateDdl(hbm2ddlAuto != null);
+        String hbm2ddlAuto = env.getProperty("hibernate.hbm2ddl.auto", "none");
+        String showSql = env.getProperty("hibernate.show_sql", "false");
+
+        va.setGenerateDdl(!"none".equals(hbm2ddlAuto));
         va.setDatabase(Database.MYSQL);
         emf.setJpaVendorAdapter(va);
         
         Properties props = new Properties();
-        if(hbm2ddlAuto != null){
+        
+        if(!hbm2ddlAuto.equals("none")){
             props.setProperty("hibernate.hbm2ddl.auto", hbm2ddlAuto);
         }
         props.setProperty("hibernate.dialect",

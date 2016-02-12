@@ -17,6 +17,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.duracloud.mill.manifest.ManifestStore;
 import org.duracloud.mill.manifest.jpa.JpaManifestStore;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -48,18 +49,40 @@ public class MillJpaRepoConfig {
     public static final String ENTITY_MANAGER_FACTORY_BEAN =
         MILL_REPO_ENTITY_MANAGER_FACTORY_BEAN;
 
+    @Value("${mill.db.host ?:localhost}")
+    private String host;
+
+    @Value("${mill.db.port ?: 3306}")
+    private int port;
+
+    @Value("${mill.db.name ?: mill}")
+    private String name;
+
+    @Value("${mill.db.user ?: user}")
+    private String user;
+
+    @Value("${mill.db.pass ?: pass}")
+    private String pass;
+    
+    @Value ("${hibernate.show_sql ?: false}")
+    private String showSql;
+    
+    @Value ("${hibernate.hbm2ddl.auto ?: validate}")
+    private String hbm2ddlAuto;
+    
     @Bean(name = MILL_REPO_DATA_SOURCE_BEAN, destroyMethod = "close")
     public BasicDataSource millRepoDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl(MessageFormat.format("jdbc:mysql://{0}:{1}/{2}" +
-        		                                "?characterEncoding=utf8" +
-        		                                "&characterSetResults=utf8",
-                                               System.getProperty("mill.db.host","localhost"),
-                                               System.getProperty("mill.db.port","3306"),
-                                               System.getProperty("mill.db.name", "mill")));
-        dataSource.setUsername(System.getProperty("mill.db.user", "mill"));
-        dataSource.setPassword(System.getProperty("mill.db.pass", "password"));
+        dataSource.setUrl(MessageFormat.format("jdbc:mysql://{0}:{1}/{2}"
+                                               + "?characterEncoding=utf8"
+                                               + "&characterSetResults=utf8",
+                                               host,
+                                               port,
+                                               name));
+        dataSource.setUsername(user);
+        dataSource.setPassword(pass);
+
         dataSource.setTestOnBorrow(true);
         dataSource.setValidationQuery("SELECT 1");
 
@@ -84,9 +107,6 @@ public class MillJpaRepoConfig {
         emf.setPersistenceUnitName("mill-repo-pu");
         emf.setPackagesToScan("org.duracloud.mill");
 
-        String hbm2ddlAuto =
-            System.getProperty("hibernate.hbm2ddl.auto");
-
         HibernateJpaVendorAdapter va = new HibernateJpaVendorAdapter();
         va.setGenerateDdl(hbm2ddlAuto != null);
         va.setDatabase(Database.MYSQL);
@@ -97,15 +117,15 @@ public class MillJpaRepoConfig {
             props.setProperty("hibernate.hbm2ddl.auto", hbm2ddlAuto);
         }
         props.setProperty("hibernate.dialect",
-                          "org.hibernate.dialect.MySQL5Dialect");
+                          "org.hibernate.dialect.MySQL5InnoDBDialect");
         props.setProperty("hibernate.ejb.naming_strategy",
                           "org.hibernate.cfg.ImprovedNamingStrategy");
         props.setProperty("hibernate.cache.provider_class",
                           "org.hibernate.cache.HashtableCacheProvider");
         props.setProperty("jadira.usertype.autoRegisterUserTypes", "true");
         props.setProperty("jadira.usertype.databaseZone", "jvm");
-        props.setProperty("hibernate.show_sql", System.getProperty("hibernate.show_sql", "false"));
-        props.setProperty("hibernate.format_sql",  System.getProperty("hibernate.format_sql", "false"));
+        props.setProperty("hibernate.show_sql", showSql);
+        props.setProperty("hibernate.format_sql", "true");
         props.setProperty("hibernate.show_comments", "false");
         emf.setJpaProperties(props);
         return emf;

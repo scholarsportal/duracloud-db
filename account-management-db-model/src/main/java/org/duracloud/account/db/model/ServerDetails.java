@@ -25,13 +25,6 @@ import javax.persistence.OneToOne;
 public class ServerDetails extends BaseEntity {
 
     /**
-     * The ComputeProviderAccount which is the compute provider for an instance
-     */
-    @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "compute_provider_account_id", nullable = false, columnDefinition = "bigint(20)")
-    private ComputeProviderAccount computeProviderAccount;
-
-    /**
      * The StorageProviderAccount which is used for primary storage
      */
     @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
@@ -45,15 +38,6 @@ public class ServerDetails extends BaseEntity {
     @JoinColumn(name = "server_details_id", nullable = true, columnDefinition = "bigint(20)")
     private Set<StorageProviderAccount> secondaryStorageProviderAccounts;
 
-
-    public ComputeProviderAccount getComputeProviderAccount() {
-        return computeProviderAccount;
-    }
-
-    public void setComputeProviderAccount(
-            ComputeProviderAccount computeProviderAccount) {
-        this.computeProviderAccount = computeProviderAccount;
-    }
 
     public StorageProviderAccount getPrimaryStorageProviderAccount() {
         return primaryStorageProviderAccount;

@@ -23,6 +23,28 @@ public class GlobalProperties extends BaseEntity {
     @Column(nullable=false)
     private String instanceNotificationTopicArn;
 
+    @Column(nullable=false)
+    private String duracloudRootUsername;
+
+    @Column(nullable=false)
+    private String duracloudRootPassword;
+    
+    public String getDuracloudRootPassword() {
+        return duracloudRootPassword;
+    }
+
+    public void setDuracloudRootPassword(String duracloudRootPassword) {
+        this.duracloudRootPassword = duracloudRootPassword;
+    }
+
+    public String getDuracloudRootUsername() {
+        return duracloudRootUsername;
+    }
+
+    public void setDuracloudRootUsername(String duracloudRootUsername) {
+        this.duracloudRootUsername = duracloudRootUsername;
+    }
+
     public String getInstanceNotificationTopicArn() {
         return instanceNotificationTopicArn;
     }

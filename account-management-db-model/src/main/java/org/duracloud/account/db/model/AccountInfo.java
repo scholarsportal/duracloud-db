@@ -59,16 +59,6 @@ public class AccountInfo extends BaseEntity implements Comparable<AccountInfo> {
     @JoinColumn(name = "server_details_id", nullable = true, columnDefinition = "bigint(20)")
     private ServerDetails serverDetails;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = true, mappedBy="account")
-    private DuracloudInstance instance;
-
-    public DuracloudInstance getInstance() {
-        return instance;
-    }
-    
-    public void setInstance(DuracloudInstance instance) {
-        this.instance = instance;
-    }
     
     public String getSubdomain() {
         return subdomain;

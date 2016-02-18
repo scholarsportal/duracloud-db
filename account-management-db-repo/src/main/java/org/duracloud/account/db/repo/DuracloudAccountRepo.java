@@ -25,4 +25,11 @@ public interface DuracloudAccountRepo extends JpaRepository<AccountInfo, Long> {
      * @return account info
      */
     public AccountInfo findBySubdomain(String subdomain);
+    
+    /**
+     * Returns an account info based on the server details id
+     * @param id
+     * @return
+     */
+    public AccountInfo findByServerDetailsId(Long id);
 }

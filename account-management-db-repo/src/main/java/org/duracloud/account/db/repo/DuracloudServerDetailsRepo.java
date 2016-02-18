@@ -17,5 +17,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository(value="serverDetailsRepo")
 public interface DuracloudServerDetailsRepo extends JpaRepository<ServerDetails, Long> {
-
+    public ServerDetails findByPrimaryStorageProviderAccountId(Long id);
+    public ServerDetails findBySecondaryStorageProviderAccountsId(Long id);
 }

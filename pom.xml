@@ -529,6 +529,12 @@
       </dependency>
       
       <dependency>
+        <groupId>org.duracloud</groupId>
+        <artifactId>common-json</artifactId>
+        <version>${duracloud.artifact.version}</version>
+      </dependency>
+      
+      <dependency>
         <groupId>org.hibernate.javax.persistence</groupId>
         <artifactId>hibernate-jpa-2.1-api</artifactId>
         <version>1.0.0.Final</version>

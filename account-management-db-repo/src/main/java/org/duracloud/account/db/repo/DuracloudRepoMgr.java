@@ -40,9 +40,6 @@ public class DuracloudRepoMgr {
     private DuracloudStorageProviderAccountRepo storageProviderAccountRepo;
 
     @Autowired
-    private DuracloudServerDetailsRepo serverDetailsRepo;
-
-    @Autowired
     private DuracloudMillRepo duracloudMillRepo;
 
     public DuracloudUserRepo getUserRepo() {
@@ -70,10 +67,6 @@ public class DuracloudRepoMgr {
         return storageProviderAccountRepo;
     }
 
-    public DuracloudServerDetailsRepo getServerDetailsRepo() {
-        return serverDetailsRepo;
-    }
-
 
     public Set<JpaRepository> getAllRepos() {
         Set<JpaRepository> repos = new HashSet<>();
@@ -83,7 +76,6 @@ public class DuracloudRepoMgr {
         repos.add(rightsRepo);
         repos.add(userInvitationRepo);
         repos.add(storageProviderAccountRepo);
-        repos.add(serverDetailsRepo);
         repos.add(duracloudMillRepo);
         return repos;
     }

@@ -7,13 +7,15 @@
  */
 package org.duracloud.account.db.model;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -52,14 +54,20 @@ public class AccountInfo extends BaseEntity implements Comparable<AccountInfo> {
     private AccountStatus status;
 
  
-    /*
-     * The details needed to manage servers associated with this account
+    /**
+     * The StorageProviderAccount which is used for primary storage
      */
-    @OneToOne(fetch = FetchType.EAGER, optional = true, cascade = CascadeType.ALL)
-    @JoinColumn(name = "server_details_id", nullable = true, columnDefinition = "bigint(20)")
-    private ServerDetails serverDetails;
+    @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "primary_storage_provider_account_id", nullable = false, columnDefinition = "bigint(20)")
+    private StorageProviderAccount primaryStorageProviderAccount;
 
-    
+    /**
+     * The StorageProviderAccounts which are used for secondary storage
+     */
+    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @JoinColumn(name = "account_info_id", nullable = true, columnDefinition = "bigint(20)")
+    private Set<StorageProviderAccount> secondaryStorageProviderAccounts;
+
     public String getSubdomain() {
         return subdomain;
     }
@@ -100,13 +108,24 @@ public class AccountInfo extends BaseEntity implements Comparable<AccountInfo> {
         this.status = status;
     }
 
-    public ServerDetails getServerDetails() {
-        return serverDetails;
+    public StorageProviderAccount getPrimaryStorageProviderAccount() {
+        return primaryStorageProviderAccount;
     }
 
-    public void setServerDetails(ServerDetails serverDetails) {
-        this.serverDetails = serverDetails;
+    public void setPrimaryStorageProviderAccount(
+            StorageProviderAccount primaryStorageProviderAccount) {
+        this.primaryStorageProviderAccount = primaryStorageProviderAccount;
     }
+
+    public Set<StorageProviderAccount> getSecondaryStorageProviderAccounts() {
+        return secondaryStorageProviderAccounts;
+    }
+
+    public void setSecondaryStorageProviderAccounts(
+            Set<StorageProviderAccount> secondaryStorageProviderAccounts) {
+        this.secondaryStorageProviderAccounts = secondaryStorageProviderAccounts;
+    }
+
 
     @Override
     public int compareTo(AccountInfo o) {

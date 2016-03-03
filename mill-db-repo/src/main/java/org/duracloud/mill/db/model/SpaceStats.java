@@ -11,8 +11,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Index;
-import javax.persistence.Table;
 
 /**
  * Represents a space's byte and object count at a moment in time.
@@ -20,23 +18,6 @@ import javax.persistence.Table;
  *
  */
 @Entity
-//@SqlResultSetMapping(
-//                     name="spaceStatsMapping",
-//                     classes={
-//                         @ConstructorResult(
-//                             targetClass=SpaceStats.class,
-//                             columns={
-//                                 @ColumnResult(name="timestamp", type=Date.class),
-//                                 @ColumnResult(name="account",  type=String.class),
-//                                 @ColumnResult(name="store_id", type=String.class),
-//                                 @ColumnResult(name="space_id", type=String.class),
-//                                 @ColumnResult(name="byte_count", type=Long.class),
-//                                 @ColumnResult(name="object_count", type=Long.class)
-//                             }
-//                         )
-//                     }
-//                 )
-
 public class SpaceStats extends BaseEntity {
     
     @Column(nullable=false, length=100)

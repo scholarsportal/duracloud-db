@@ -45,12 +45,37 @@ public interface JpaSpaceStatsRepo extends JpaRepository<SpaceStats, Long> {
             + "           account_id, "
             + "           store_id,  "
             + "           space_id" )
-    public List<Object[]> getByAccountIdAndStoreIdAndSpaceIdGroupByDay(
+    public List<Object[]> getByAccountIdAndStoreIdAndSpaceId(
                                          @Param("accountId") String accountId,
                                          @Param("storeId") String storeId,
                                          @Param("spaceId") String spaceId,
                                          @Param("start") Date start,
                                          @Param("end") Date end,
                                          @Param("interval") String interval);
+
+    @Query(nativeQuery=true, 
+        value="select a.modified, a.account_id, a.store_id, sum(a.byte_count), sum(a.object_count) from (select"
+            + "    unix_timestamp(date_format(min(modified), '%Y-%m-%d 00:00:00')) as modified, "
+            + "    account_id,"
+            + "    store_id,"
+            + "    space_id,"
+            + "    avg(byte_count) as byte_count,"
+            + "    avg(object_count) as object_count,"
+            + "    date_format(modified, :interval) "
+            + "from space_stats  "
+            + "where  account_id = :accountId and  "
+            + "    store_id = :storeId and  "
+            + "    modified between :start and :end "
+            + "group by   date_format(modified, :interval), "
+            + "           account_id, "
+            + "           store_id,  "
+            + "           space_id) a "
+            + "group by a.modified, a.account_id, a.store_id" )
+    public List<Object[]> getByAccountIdAndStoreId(@Param("accountId") String accountId,
+                                                             @Param("storeId") String storeId,
+                                                             @Param("start") Date start,
+                                                             @Param("end") Date end,
+                                                             @Param("interval") String interval);
+
  
 }

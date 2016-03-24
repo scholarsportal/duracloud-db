@@ -77,5 +77,28 @@ public interface JpaSpaceStatsRepo extends JpaRepository<SpaceStats, Long> {
                                                              @Param("end") Date end,
                                                              @Param("interval") String interval);
 
+    
+    @Query(nativeQuery=true, 
+        value="select"
+            + "    unix_timestamp(date_format(min(modified), '%Y-%m-%d 00:00:00')) as modified, "
+            + "    account_id,"
+            + "    store_id,"
+            + "    space_id,"
+            + "    avg(byte_count) as byte_count,"
+            + "    avg(object_count) as object_count,"
+            + "    date_format(modified, '%Y-%m-%d 00:00:00') "
+            + "from space_stats  "
+            + "where  account_id = :accountId and  "
+            + "    store_id = :storeId and  "
+            + "    modified between :start and :end "
+            + "group by   date_format(modified, '%Y-%m-%d'), "
+            + "           account_id, "
+            + "           store_id,  "
+            + "           space_id" )
+    public List<Object[]> getByAccountIdAndStoreIdAndDay(@Param("accountId")String accountId,
+                                                         @Param("storeId")String storeId,
+                                                         @Param("start")Date start,
+                                                         @Param("end")Date end);
+
  
 }

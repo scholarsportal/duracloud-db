@@ -60,7 +60,9 @@ public class MillJpaRepoConfig {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl(MessageFormat.format("jdbc:mysql://{0}:{1}/{2}" +
-                    "?characterEncoding=utf8" +
+                    "?useLegacyDatetimeCode=false" +
+                    "&serverTimezone=GMT" +
+                    "&characterEncoding=utf8" +
                     "&characxterSetResults=utf8",
                    env.getProperty("mill.db.host", "localhost"),
                    env.getProperty("mill.db.port", "3306"),

@@ -163,7 +163,7 @@
     <org.springframework.webflow.version>2.3.3.RELEASE</org.springframework.webflow.version>
     <org.springframework.data.jpa.version>1.6.0.RELEASE</org.springframework.data.jpa.version>
     <hibernate.version>4.3.2.Final</hibernate.version>
-    <mysql.driver.version>5.1.28</mysql.driver.version>
+    <mysql.driver.version>5.1.38</mysql.driver.version>
     <slf4j.version>1.7.6</slf4j.version>
 
     <skipUTs>false</skipUTs>

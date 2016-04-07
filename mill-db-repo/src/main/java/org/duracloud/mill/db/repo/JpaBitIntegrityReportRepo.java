@@ -35,4 +35,14 @@ public interface JpaBitIntegrityReportRepo
                                                                        String spaceId,
                                                                        Pageable pageable);
 
+    /**
+     * 
+     * @param account
+     * @param storeId
+     * @param spaceId
+     * @return
+     */
+    BitIntegrityReport findFirstByAccountAndStoreIdAndSpaceIdOrderByCompletionDateDesc(String account,
+                                                                                       String storeId,
+                                                                                       String spaceId);
 }

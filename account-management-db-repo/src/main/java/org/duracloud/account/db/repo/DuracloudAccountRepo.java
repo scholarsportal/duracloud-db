@@ -8,8 +8,10 @@
 package org.duracloud.account.db.repo;
 
 import org.duracloud.account.db.model.AccountInfo;
+import org.duracloud.account.db.model.AccountInfo.AccountStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import java.util.List;
 
 /**
  * @author Erik Paulsson
@@ -25,4 +27,13 @@ public interface DuracloudAccountRepo extends JpaRepository<AccountInfo, Long> {
      * @return account info
      */
     public AccountInfo findBySubdomain(String subdomain);
+
+        
+    /**
+     * This method returns the account with the given subdomain
+     *
+     * @param status 
+     * @return list of account info
+     */
+    public List<AccountInfo> findByStatus(AccountStatus status);
 }

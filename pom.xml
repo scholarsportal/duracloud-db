@@ -530,7 +530,17 @@
       <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-validator</artifactId>
-        <version>${hibernate.version}</version>
+	<version>${hibernate.version}</version>
+	<exclusions>
+          <exclusion>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.fasterxml</groupId>
+            <artifactId>classmate</artifactId>
+          </exclusion>
+	</exclusions>
       </dependency>
       
       <dependency>

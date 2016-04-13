@@ -18,10 +18,8 @@ import org.duracloud.mill.manifest.ManifestStore;
 import org.duracloud.mill.manifest.jpa.JpaManifestStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -108,8 +106,10 @@ public class MillJpaRepoConfig {
         }
         props.setProperty("hibernate.dialect",
                           "org.hibernate.dialect.MySQL5InnoDBDialect");
-        props.setProperty("hibernate.ejb.naming_strategy",
-                          "org.hibernate.cfg.ImprovedNamingStrategy");
+        props.setProperty("hibernate.physical_naming_strategy",
+                          "org.duracloud.common.db.hibernate.PhysicalNamingStrategyImpl");
+        props.setProperty("hibernate.implicit_naming_strategy",
+            "org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl");
         props.setProperty("hibernate.cache.provider_class",
                           "org.hibernate.cache.HashtableCacheProvider");
         props.setProperty("jadira.usertype.autoRegisterUserTypes", "true");

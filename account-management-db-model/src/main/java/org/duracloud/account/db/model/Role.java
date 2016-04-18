@@ -7,11 +7,11 @@
  */
 package org.duracloud.account.db.model;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 /**
  * @author Erik Paulsson
@@ -29,7 +29,7 @@ public enum Role {
     private String displayName;
 
     Role(String displayName) {
-        this.authority = new GrantedAuthorityImpl(name());
+        this.authority = new SimpleGrantedAuthority(name());
         this.displayName = displayName;
     }
 

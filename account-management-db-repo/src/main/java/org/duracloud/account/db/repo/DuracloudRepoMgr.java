@@ -37,19 +37,7 @@ public class DuracloudRepoMgr {
     private DuracloudUserInvitationRepo userInvitationRepo;
 
     @Autowired
-    private DuracloudInstanceRepo instanceRepo;
-
-    @Autowired
-    private DuracloudServerImageRepo serverImageRepo;
-
-    @Autowired
-    private DuracloudComputeProviderAccountRepo computeProviderAccountRepo;
-
-    @Autowired
     private DuracloudStorageProviderAccountRepo storageProviderAccountRepo;
-
-    @Autowired
-    private DuracloudServerDetailsRepo serverDetailsRepo;
 
     @Autowired
     private DuracloudMillRepo duracloudMillRepo;
@@ -74,24 +62,9 @@ public class DuracloudRepoMgr {
         return userInvitationRepo;
     }
 
-    public DuracloudInstanceRepo getInstanceRepo() {
-        return instanceRepo;
-    }
-
-    public DuracloudServerImageRepo getServerImageRepo() {
-        return serverImageRepo;
-    }
-
-    public DuracloudComputeProviderAccountRepo getComputeProviderAccountRepo() {
-        return computeProviderAccountRepo;
-    }
 
     public DuracloudStorageProviderAccountRepo getStorageProviderAccountRepo() {
         return storageProviderAccountRepo;
-    }
-
-    public DuracloudServerDetailsRepo getServerDetailsRepo() {
-        return serverDetailsRepo;
     }
 
 
@@ -102,11 +75,7 @@ public class DuracloudRepoMgr {
         repos.add(accountRepo);
         repos.add(rightsRepo);
         repos.add(userInvitationRepo);
-        repos.add(instanceRepo);
-        repos.add(serverDetailsRepo);
-        repos.add(computeProviderAccountRepo);
         repos.add(storageProviderAccountRepo);
-        repos.add(serverDetailsRepo);
         repos.add(duracloudMillRepo);
         return repos;
     }

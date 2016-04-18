@@ -7,6 +7,8 @@
  */
 package org.duracloud.account.db.repo;
 
+import java.util.List;
+
 import org.duracloud.account.db.model.DuracloudUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -25,4 +27,10 @@ public interface DuracloudUserRepo extends JpaRepository<DuracloudUser, Long> {
      * @return user
      */
     public DuracloudUser findByUsername(String username);
+    
+    /**
+     * Returns all enabled, non-locked root users with non-expired credentials. 
+     * @return
+     */
+    public List<DuracloudUser> findByRootTrueAndEnabledTrueAndAccountNonExpiredTrueAndCredentialsNonExpiredTrueAndAccountNonLockedTrue();
 }

@@ -17,7 +17,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
@@ -155,7 +155,7 @@ public class DuracloudUser extends BaseEntity implements UserDetails {
     public Collection<GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
         for (Role role : Role.ROLE_USER.getRoleHierarchy()) {
-            authorities.add(new GrantedAuthorityImpl(role.name()));
+            authorities.add(new SimpleGrantedAuthority(role.name()));
         }
 
         if (accountRights != null) {
@@ -170,7 +170,7 @@ public class DuracloudUser extends BaseEntity implements UserDetails {
         }
         
         if(isRoot()){
-            authorities.add(new GrantedAuthorityImpl(Role.ROLE_ROOT.name()));
+            authorities.add(new SimpleGrantedAuthority(Role.ROLE_ROOT.name()));
         }
         return authorities;
     }
@@ -183,6 +183,10 @@ public class DuracloudUser extends BaseEntity implements UserDetails {
                     roles = rights.getRoles();
                 }
             }
+        }
+        
+        if(isRoot()){
+            roles.addAll(Role.ROLE_ROOT.getRoleHierarchy());
         }
         return roles;
     }

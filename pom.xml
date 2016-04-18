@@ -6,7 +6,7 @@
   <groupId>org.duracloud.db</groupId>
   <artifactId>db</artifactId>
   <packaging>pom</packaging>
-  <version>3.6.0-SNAPSHOT</version>
+  <version>4.0.0-SNAPSHOT</version>
   <name>DuraCloud DB</name>
   <description>DuraCloud Database Management</description>
   <url>http://duracloud.org</url>
@@ -157,13 +157,12 @@
     <log.level.default>INFO</log.level.default>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <duracloud.artifact.version>3.7.1</duracloud.artifact.version>
+    <duracloud.artifact.version>4.0.0-SNAPSHOT</duracloud.artifact.version>
     <org.springframework.version>4.2.5.RELEASE</org.springframework.version>
-    <org.springframework.security.version>3.2.3.RELEASE</org.springframework.security.version>
-    <org.springframework.webflow.version>2.3.3.RELEASE</org.springframework.webflow.version>
-    <org.springframework.data.jpa.version>1.10.1.RELEASE</org.springframework.data.jpa.version>
-    <hibernate.version>4.3.2.Final</hibernate.version>
-    <mysql.driver.version>5.1.28</mysql.driver.version>
+    <org.springframework.security.version>4.0.4.RELEASE</org.springframework.security.version>
+    <org.springframework.data.jpa.version>1.6.0.RELEASE</org.springframework.data.jpa.version>
+    <hibernate.version>5.1.0.Final</hibernate.version>
+    <mysql.driver.version>5.1.38</mysql.driver.version>
     <slf4j.version>1.7.6</slf4j.version>
 
     <skipUTs>false</skipUTs>
@@ -518,6 +517,12 @@
 
       <dependency>
         <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>${hibernate.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.hibernate</groupId>
         <artifactId>hibernate-entitymanager</artifactId>
         <version>${hibernate.version}</version>
       </dependency>
@@ -525,7 +530,23 @@
       <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-validator</artifactId>
-        <version>${hibernate.version}</version>
+	<version>${hibernate.version}</version>
+	<exclusions>
+          <exclusion>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.fasterxml</groupId>
+            <artifactId>classmate</artifactId>
+          </exclusion>
+	</exclusions>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.duracloud</groupId>
+        <artifactId>common-json</artifactId>
+        <version>${duracloud.artifact.version}</version>
       </dependency>
       
       <dependency>

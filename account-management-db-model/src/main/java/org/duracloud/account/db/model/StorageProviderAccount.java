@@ -7,7 +7,6 @@
  */
 package org.duracloud.account.db.model;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.CollectionTable;

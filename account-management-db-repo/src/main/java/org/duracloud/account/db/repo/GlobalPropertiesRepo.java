@@ -7,15 +7,15 @@
  */
 package org.duracloud.account.db.repo;
 
-import org.duracloud.account.db.model.ServerDetails;
+import org.duracloud.account.db.model.GlobalProperties;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author Erik Paulsson
- *         Date: 7/8/13
+ * @author Daniel Bernstein
+ *         Date: 05/06/2015
  */
-@Repository(value="serverDetailsRepo")
-public interface DuracloudServerDetailsRepo extends JpaRepository<ServerDetails, Long> {
-
+@Repository(value="globalPropertiesRepo")
+public interface GlobalPropertiesRepo extends JpaRepository<GlobalProperties, Long> {
+    
 }

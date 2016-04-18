@@ -53,6 +53,12 @@ public class UserFinderUtil {
 
             users.add(user);
         }
+        
+        List<DuracloudUser> rootUsers =
+            repoMgr.getUserRepo()
+                   .findByRootTrueAndEnabledTrueAndAccountNonExpiredTrueAndCredentialsNonExpiredTrueAndAccountNonLockedTrue();
+
+        users.addAll(rootUsers);
         return users;
     }
     
@@ -120,10 +126,7 @@ public class UserFinderUtil {
         if(null == baseRange || baseRange.equals("")) {
             return baseRange;
         } else {
-            String elasticIp = accountInfo.getServerDetails()
-                                           .getComputeProviderAccount().getElasticIp();
-            String delimeter = ";";
-            return baseRange + delimeter + elasticIp + "/32";
+            return baseRange; // delimeter + elasticIp + "/32";
         }
     }
 

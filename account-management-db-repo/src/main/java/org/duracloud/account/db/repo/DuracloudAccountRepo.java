@@ -28,7 +28,6 @@ public interface DuracloudAccountRepo extends JpaRepository<AccountInfo, Long> {
      */
     public AccountInfo findBySubdomain(String subdomain);
 
-        
     /**
      * This method returns the account with the given subdomain
      *
@@ -36,4 +35,19 @@ public interface DuracloudAccountRepo extends JpaRepository<AccountInfo, Long> {
      * @return list of account info
      */
     public List<AccountInfo> findByStatus(AccountStatus status);
+
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    //public AccountInfo findByPrimaryStorageProviderAccountId(Long id);
+
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    //public AccountInfo findBySecondaryStorageProviderAccountsId(Long id);
+
 }

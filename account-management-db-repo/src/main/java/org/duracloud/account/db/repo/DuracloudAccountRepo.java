@@ -41,13 +41,13 @@ public interface DuracloudAccountRepo extends JpaRepository<AccountInfo, Long> {
      * @param id
      * @return
      */
-    //public AccountInfo findByPrimaryStorageProviderAccountId(Long id);
+    public AccountInfo findByPrimaryStorageProviderAccountId(Long id);
 
     /**
      * 
      * @param id
      * @return
      */
-    //public AccountInfo findBySecondaryStorageProviderAccountsId(Long id);
+    public AccountInfo findBySecondaryStorageProviderAccountsId(Long id);
 
 }

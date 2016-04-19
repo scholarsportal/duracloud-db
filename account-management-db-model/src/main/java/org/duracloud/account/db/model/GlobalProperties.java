@@ -24,12 +24,6 @@ public class GlobalProperties extends BaseEntity {
     private String instanceNotificationTopicArn;
 
     @Column(nullable=false)
-    private String duracloudRootUsername;
-
-    @Column(nullable=false)
-    private String duracloudRootPassword;
-
-    @Column(nullable=false)
     private String cloudFrontAccountId;
 
     @Column(nullable=false)
@@ -37,22 +31,6 @@ public class GlobalProperties extends BaseEntity {
 
     @Column(nullable=false)
     private String cloudFrontKeyPath;
-
-    public String getDuracloudRootPassword() {
-        return duracloudRootPassword;
-    }
-
-    public void setDuracloudRootPassword(String duracloudRootPassword) {
-        this.duracloudRootPassword = duracloudRootPassword;
-    }
-
-    public String getDuracloudRootUsername() {
-        return duracloudRootUsername;
-    }
-
-    public void setDuracloudRootUsername(String duracloudRootUsername) {
-        this.duracloudRootUsername = duracloudRootUsername;
-    }
 
     public String getInstanceNotificationTopicArn() {
         return instanceNotificationTopicArn;

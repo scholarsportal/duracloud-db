@@ -111,6 +111,7 @@ public class AccountJpaRepoConfig {
                           "org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl");
         props.setProperty("hibernate.cache.provider_class",
                           "org.hibernate.cache.HashtableCacheProvider");
+        props.setProperty("hibernate.id.new_generator_mappings", "false");
         props.setProperty("jadira.usertype.autoRegisterUserTypes", "true");
         props.setProperty("jadira.usertype.databaseZone", "jvm");
         props.setProperty("hibernate.show_sql", showSql);

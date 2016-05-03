@@ -117,6 +117,8 @@ public class MillJpaRepoConfig {
         props.setProperty("hibernate.show_sql", showSql);
         props.setProperty("hibernate.format_sql", "true");
         props.setProperty("hibernate.show_comments", "false");
+        props.setProperty("hibernate.id.new_generator_mappings", "false");
+
         emf.setJpaProperties(props);
         return emf;
     }

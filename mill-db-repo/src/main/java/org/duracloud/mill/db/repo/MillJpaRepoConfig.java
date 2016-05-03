@@ -8,12 +8,12 @@
 package org.duracloud.mill.db.repo;
 
 import java.text.MessageFormat;
-import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.duracloud.common.db.jpa.JpaConfigurationUtil;
 import org.duracloud.mill.manifest.ManifestStore;
 import org.duracloud.mill.manifest.jpa.JpaManifestStore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -92,34 +90,8 @@ public class MillJpaRepoConfig {
         emf.setPersistenceUnitName("mill-repo-pu");
         emf.setPackagesToScan("org.duracloud.mill");
 
-        HibernateJpaVendorAdapter va = new HibernateJpaVendorAdapter();
-        String hbm2ddlAuto = env.getProperty("hibernate.hbm2ddl.auto", "none");
-        String showSql = env.getProperty("hibernate.show_sql", "false");
+        JpaConfigurationUtil.configureEntityManagerFactory(env,emf);
 
-        va.setGenerateDdl(!"none".equals(hbm2ddlAuto));
-        va.setDatabase(Database.MYSQL);
-        emf.setJpaVendorAdapter(va);
-        
-        Properties props = new Properties();
-        if(!hbm2ddlAuto.equals("none")){
-            props.setProperty("hibernate.hbm2ddl.auto", hbm2ddlAuto);
-        }
-        props.setProperty("hibernate.dialect",
-                          "org.hibernate.dialect.MySQL5InnoDBDialect");
-        props.setProperty("hibernate.physical_naming_strategy",
-                          "org.duracloud.common.db.hibernate.PhysicalNamingStrategyImpl");
-        props.setProperty("hibernate.implicit_naming_strategy",
-            "org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl");
-        props.setProperty("hibernate.cache.provider_class",
-                          "org.hibernate.cache.HashtableCacheProvider");
-        props.setProperty("jadira.usertype.autoRegisterUserTypes", "true");
-        props.setProperty("jadira.usertype.databaseZone", "jvm");
-        props.setProperty("hibernate.show_sql", showSql);
-        props.setProperty("hibernate.format_sql", "true");
-        props.setProperty("hibernate.show_comments", "false");
-        props.setProperty("hibernate.id.new_generator_mappings", "false");
-
-        emf.setJpaProperties(props);
         return emf;
     }
 

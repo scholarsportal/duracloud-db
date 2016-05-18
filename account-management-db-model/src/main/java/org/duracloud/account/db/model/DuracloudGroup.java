@@ -34,7 +34,7 @@ public class DuracloudGroup extends BaseEntity {
         inverseJoinColumns=@JoinColumn(name="user_id", referencedColumnName="id", columnDefinition = "bigint(20)"))
     private Set<DuracloudUser> users;
 
-    @ManyToOne(fetch=FetchType.EAGER, optional=false)
+    @ManyToOne(fetch=FetchType.LAZY, optional=false)
     @JoinColumn(name="account_id", nullable=false, columnDefinition = "bigint(20)")
     private AccountInfo account;
 

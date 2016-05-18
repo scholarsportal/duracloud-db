@@ -45,7 +45,7 @@ public class DuracloudUser extends BaseEntity implements UserDetails {
      */
     private String allowableIPAddressRange;  
 
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="user")
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="user")
     private Set<AccountRights> accountRights;
     private boolean root = false;
 

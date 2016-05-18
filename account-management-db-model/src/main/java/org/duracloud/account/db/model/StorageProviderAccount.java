@@ -35,7 +35,7 @@ public class StorageProviderAccount extends ProviderAccount {
     @Enumerated(EnumType.STRING)
     private StorageProviderType providerType;
 
-    @ElementCollection(fetch=FetchType.EAGER)
+    @ElementCollection(fetch=FetchType.LAZY)
     @MapKeyColumn (name="map_key")
     @CollectionTable(name ="storage_provider_account_properties",
     joinColumns=@JoinColumn(name="storage_provider_account_id"))

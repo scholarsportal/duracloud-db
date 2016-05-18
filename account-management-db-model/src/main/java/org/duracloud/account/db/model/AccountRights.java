@@ -7,7 +7,8 @@
  */
 package org.duracloud.account.db.model;
 
-import javax.persistence.Basic;
+import java.util.Set;
+
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -17,7 +18,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.util.Set;
 
 /**
  * @author Erik Paulsson

@@ -18,6 +18,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+
 /**
  * @author Erik Paulsson Date: 7/10/13
  */
@@ -57,14 +62,14 @@ public class AccountInfo extends BaseEntity implements Comparable<AccountInfo> {
     /**
      * The StorageProviderAccount which is used for primary storage
      */
-    @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "primary_storage_provider_account_id", nullable = false, columnDefinition = "bigint(20)")
     private StorageProviderAccount primaryStorageProviderAccount;
 
     /**
      * The StorageProviderAccounts which are used for secondary storage
      */
-    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
     @JoinColumn(name = "account_info_id", nullable = true, columnDefinition = "bigint(20)")
     private Set<StorageProviderAccount> secondaryStorageProviderAccounts;
 

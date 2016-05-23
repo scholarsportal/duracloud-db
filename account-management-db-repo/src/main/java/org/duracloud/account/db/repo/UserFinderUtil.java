@@ -46,11 +46,12 @@ public class UserFinderUtil {
         Set<DuracloudUser> users = new HashSet<>();
         for (AccountRights rights : acctRights) {
             DuracloudUser user = rights.getUser();
-
+            //ensure account is loaded.
+            rights.getAccount();
             // make sure only the rights for this account are set
-            user.getAccountRights().clear();
-            user.getAccountRights().add(rights);
-
+            Set<AccountRights> accountOnlyRightsSet = new HashSet<>();
+            accountOnlyRightsSet.add(rights);
+            user.setAccountRights(accountOnlyRightsSet);
             users.add(user);
         }
         

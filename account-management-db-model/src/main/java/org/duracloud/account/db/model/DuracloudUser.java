@@ -45,7 +45,7 @@ public class DuracloudUser extends BaseEntity implements UserDetails {
      */
     private String allowableIPAddressRange;  
 
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="user")
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="user")
     private Set<AccountRights> accountRights;
     private boolean root = false;
 
@@ -178,7 +178,7 @@ public class DuracloudUser extends BaseEntity implements UserDetails {
     public Set<Role> getRolesByAcct(Long accountId) {
         Set<Role> roles = new HashSet<Role>(0);
         if (accountRights != null) {
-            for (AccountRights rights : getAccountRights()) {
+            for (AccountRights rights : this.accountRights) {
                 if (rights.getAccount().getId().equals(accountId)) {
                     roles = rights.getRoles();
                 }

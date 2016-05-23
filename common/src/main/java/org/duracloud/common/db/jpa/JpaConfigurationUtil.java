@@ -39,6 +39,7 @@ public class JpaConfigurationUtil {
                           "org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl");
         props.setProperty("hibernate.cache.provider_class",
                           "org.hibernate.cache.HashtableCacheProvider");
+		props.setProperty("hibernate.enable_lazy_load_no_trans", "true");
         props.setProperty("hibernate.id.new_generator_mappings", "false");
         props.setProperty("jadira.usertype.autoRegisterUserTypes", "true");
         props.setProperty("jadira.usertype.databaseZone", "jvm");

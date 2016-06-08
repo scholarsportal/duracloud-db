@@ -34,7 +34,7 @@ public abstract class BaseEntity {
 
 
     @Version
-    @Column(nullable=false)
+    @Column(nullable=false, columnDefinition="datetime(3) NOT NULL")
     private Date modified;
 
     public Long getId() {

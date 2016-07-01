@@ -26,12 +26,6 @@
             <version>${duracloud.artifact.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.duracloud</groupId>
-            <artifactId>computeprovider</artifactId>
-            <version>${duracloud.artifact.version}</version>
-        </dependency>
-
         <!--External dependencies-->
         <dependency>
             <groupId>org.hibernate</groupId>

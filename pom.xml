@@ -157,7 +157,6 @@
     <log.level.default>INFO</log.level.default>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <duracloud.artifact.version>4.0.0</duracloud.artifact.version>
     <org.springframework.version>4.2.5.RELEASE</org.springframework.version>
     <org.springframework.security.version>4.0.4.RELEASE</org.springframework.security.version>
     <org.springframework.data.jpa.version>1.10.1.RELEASE</org.springframework.data.jpa.version>
@@ -530,8 +529,8 @@
       <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-validator</artifactId>
-	<version>${hibernate.version}</version>
-	<exclusions>
+	      <version>${hibernate.version}</version>
+	      <exclusions>
           <exclusion>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
@@ -540,15 +539,9 @@
             <groupId>com.fasterxml</groupId>
             <artifactId>classmate</artifactId>
           </exclusion>
-	</exclusions>
+	      </exclusions>
       </dependency>
-      
-      <dependency>
-        <groupId>org.duracloud</groupId>
-        <artifactId>common-json</artifactId>
-        <version>${duracloud.artifact.version}</version>
-      </dependency>
-      
+
       <dependency>
         <groupId>org.hibernate.javax.persistence</groupId>
         <artifactId>hibernate-jpa-2.1-api</artifactId>

@@ -21,10 +21,10 @@ import javax.persistence.Version;
  *         Date: 7/10/13
  */
 @MappedSuperclass
-public abstract class BaseEntity implements Identifiable {
+public abstract class BaseEntity {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO, generator="idOrGenerate")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(columnDefinition="bigint(20) AUTO_INCREMENT")
     protected Long id;
 
@@ -32,12 +32,10 @@ public abstract class BaseEntity implements Identifiable {
     @Version
     private Date modified;
 
-    @Override
     public Long getId() {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }

@@ -16,8 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
-import org.hibernate.annotations.GenericGenerator;
-
 /**
  * @author Erik Paulsson
  *         Date: 7/10/13
@@ -27,8 +25,6 @@ public abstract class BaseEntity implements Identifiable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO, generator="idOrGenerate")
-    @GenericGenerator(name="idOrGenerate",
-                      strategy="org.duracloud.account.db.model.util.UseIdOrGenerate")
     @Column(columnDefinition="bigint(20) AUTO_INCREMENT")
     protected Long id;
 

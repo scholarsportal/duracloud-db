@@ -10,11 +10,13 @@ package org.duracloud.mill.db.repo;
 import java.util.Date;
 
 import org.duracloud.mill.db.model.ManifestItem;
+import org.duracloud.mill.db.model.SpaceStats;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -76,5 +78,23 @@ public interface JpaManifestItemRepo extends
     void deleteByAccountAndStoreIdAndSpaceId(String account,
                                              String storeId,
                                              String spaceId);
+
+
+    /**
+     * Returns an array with the following values:  [item_count,byte_count]
+     * @param account
+     * @param storeId
+     * @param spaceId
+     * @return
+     */
+    @Query(nativeQuery=true,
+    	   value="select count(*) objectCount, sum(content_size) as byteCount "
+    	   		+ "from manifest_item "
+    	   		+ "where account = :account and store_id = :storeId and "
+    	   		+ "space_id= :spaceId and deleted=false")	
+    public Object[]  getStorageStatsByAccountAndStoreIdAndSpaceId(@Param("account")String account,
+															            @Param("storeId")String storeId,
+															            @Param("spaceId")String spaceId);
+ 
 
 }

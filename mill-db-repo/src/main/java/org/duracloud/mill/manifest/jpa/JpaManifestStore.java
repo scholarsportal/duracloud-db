@@ -11,6 +11,7 @@ import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Iterator;
 
+import org.duracloud.common.collection.IteratorSource;
 import org.duracloud.common.collection.StreamingIterator;
 import org.duracloud.common.collection.jpa.JpaIteratorSource;
 import org.duracloud.common.db.error.NotFoundException;
@@ -225,32 +226,50 @@ public class JpaManifestStore implements
                                            final String storeId,
                                            final String spaceId, 
 					   final boolean ordered) {
-        JpaIteratorSource<JpaManifestItemRepo, ManifestItem> source = 
-            new JpaIteratorSource<JpaManifestItemRepo, ManifestItem>(this.manifestItemRepo, 10000) {
-                @Override
-                protected Page<ManifestItem> getNextPage(Pageable pageable,
-                                                         JpaManifestItemRepo repo) {
-                    
-                    if(ordered){
-                        return manifestItemRepo
-                            .findByAccountAndStoreIdAndSpaceIdAndDeletedFalseOrderByContentIdAsc(account,
-                                                                                       storeId,
-                                                                                       spaceId,
-                                                                                       pageable);
-                    }else{
-                        return manifestItemRepo
-                            .findByAccountAndStoreIdAndSpaceIdAndDeletedFalse(account,
-                                                                                       storeId,
-                                                                                       spaceId,
-                                                                                       pageable);
+    	
+    	if(ordered){
+        	return getItemsOrdered(account, storeId, spaceId);
+    	}else{
+    		return getItemsUnordered(account,storeId, spaceId);
+    	}
 
-                    }
-                }
-            };
-        
-        return (Iterator) new StreamingIterator<ManifestItem>(source);
     }
 
+	private Iterator<ManifestItem> getItemsOrdered(final String account, final String storeId, final String spaceId) {
+		JpaIteratorSource<JpaManifestItemRepo, ManifestItem> source =
+		        new JpaIteratorSource<JpaManifestItemRepo, ManifestItem>(this.manifestItemRepo, 10000) {
+		            @Override
+		            protected Page<ManifestItem> getNextPage(Pageable pageable,
+		                                                     JpaManifestItemRepo repo) {
+		                
+		                    return manifestItemRepo
+		                        .findByAccountAndStoreIdAndSpaceIdAndDeletedFalseOrderByContentIdAsc(account,
+		                                                                                   storeId,
+		                                                                                   spaceId,
+		                                                                                   pageable);
+		            }
+		        };
+	    return (Iterator<ManifestItem>) new StreamingIterator<ManifestItem>(source);
+	}
+
+	/**
+	 * 
+	 * @param account
+	 * @param storeId
+	 * @param spaceId
+	 * @return
+	 */
+    private Iterator<ManifestItem> getItemsUnordered(final String account,
+                                           final String storeId,
+                                           final String spaceId) {
+		return  new StreamingIterator<ManifestItem>(
+					new ManifestItemIteratorSource(this.manifestItemRepo, 
+												   account, 
+												   storeId, 
+												   spaceId, 
+												   10000));
+    }
+    
     @Override
     public ManifestItem
             getItem(final String account,

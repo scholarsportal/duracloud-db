@@ -8,9 +8,9 @@
 package org.duracloud.mill.db.repo;
 
 import java.util.Date;
+import java.util.List;
 
 import org.duracloud.mill.db.model.ManifestItem;
-import org.duracloud.mill.db.model.SpaceStats;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -42,19 +42,38 @@ public interface JpaManifestItemRepo extends
                                                                       Pageable pageable);
 
     /**
-     * Same as above produces an unordered list
+     * 
      * @param account
      * @param storeId
      * @param spaceId
-     * @param pageable
+     * @param lastId
+     *            The last id of the previous page. If there was no previous
+     *            page, we recommend that you use the minimum id minus 1 in the
+     *            unpaged set for optimum performance.
+     * @param limit
      * @return
      */
-    Page<ManifestItem>
+    @Query(nativeQuery=true,value="select * from manifest_item where account = ?1 and store_id=?2 and "
+                                + "space_id = ?3 and deleted = false and id > ?4 order by id limit ?5")
+    List<ManifestItem>
     findByAccountAndStoreIdAndSpaceIdAndDeletedFalse(String account,
                                                      String storeId,
                                                      String spaceId,
-                                                     Pageable pageable);
+                                                     long lastId,
+                                                     int limit);
 
+    /**
+     * Returns the minimum id value for the specified data set.
+     * @param account
+     * @param storeId
+     * @param spaceId
+     * @return
+     */
+    @Query(nativeQuery=true,value="select ifnull(min(id),0) from manifest_item where account = ?1 and store_id=?2 and "
+            					+ "space_id = ?3 and deleted = false")
+	long getMinId(String account, String storeId, String spaceId);
+
+    
     /**
      * @param account
      * @param storeId
@@ -95,6 +114,7 @@ public interface JpaManifestItemRepo extends
     public Object[]  getStorageStatsByAccountAndStoreIdAndSpaceId(@Param("account")String account,
 															            @Param("storeId")String storeId,
 															            @Param("spaceId")String spaceId);
+
  
 
 }

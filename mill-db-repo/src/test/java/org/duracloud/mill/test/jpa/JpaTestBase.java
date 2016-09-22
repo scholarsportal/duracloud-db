@@ -53,13 +53,19 @@ public abstract class JpaTestBase<T> extends EasyMockSupport {
     protected Page<T> setupPage(int count) {
         Page<T> page = createMock(Page.class);
         
+         List<T> items = setupList(count);
+        expect(page.getContent()).andReturn(items);
+        expect(page.getTotalPages()).andReturn(1);
+        return page;
+    }
+
+    protected List<T> setupList(int count) {
          List<T> items = new ArrayList<>();
         for(int i = 0; i < count; i++){
             items.add(create());
         }
-        expect(page.getContent()).andReturn(items);
-        expect(page.getTotalPages()).andReturn(1);
-        return page;
+        
+        return items;
     }
 
     /**

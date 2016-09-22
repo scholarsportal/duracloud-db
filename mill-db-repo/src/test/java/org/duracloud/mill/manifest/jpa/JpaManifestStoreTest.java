@@ -12,12 +12,13 @@ import static org.easymock.EasyMock.eq;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import org.duracloud.mill.db.model.ManifestItem;
 import org.duracloud.mill.db.repo.JpaManifestItemRepo;
@@ -27,7 +28,6 @@ import org.easymock.Capture;
 import org.easymock.Mock;
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
@@ -254,19 +254,28 @@ public class JpaManifestStoreTest extends JpaTestBase<ManifestItem> {
     public void testGetItems() {
         createTestSubject();
 
-        Capture<Pageable> capture = new Capture<>();
         int count = 10;
 
-        Page<ManifestItem> page = setupPage(count);
+        List<ManifestItem> list = setupList(count);
+    	expect(list.get(count-1).getId()).andReturn((long)count);
+        
+        expect(this.repo.getMinId(eq(account), eq(storeId), eq(spaceId))).andReturn(1l);
+        
         expect(this.repo.findByAccountAndStoreIdAndSpaceIdAndDeletedFalse(eq(account),
                                                                                    eq(storeId),
                                                                                    eq(spaceId),
-                                                                                   capture(capture))).andReturn(page);
+                                                                                   eq(0l),eq(10000))).andReturn(list);
+
+        expect(this.repo.findByAccountAndStoreIdAndSpaceIdAndDeletedFalse(eq(account),
+                eq(storeId),
+                eq(spaceId),
+                eq(10l),
+                eq(10000))).andReturn(null);
+
         replayAll();
 
         Iterator<ManifestItem> it = this.store.getItems(account,storeId, spaceId);
         verifyIterator(count, it);
-        verifyPageable(capture);
     }
 
     /**

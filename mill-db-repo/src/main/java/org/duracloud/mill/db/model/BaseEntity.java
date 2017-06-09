@@ -33,11 +33,14 @@ public abstract class BaseEntity {
     protected Long id;
 
 
-    @Version
     @Column(nullable=false, columnDefinition="datetime(3) NOT NULL")
     private Date modified;
 
-    public Long getId() {
+    @Version
+    @Column(nullable = false, columnDefinition = "int NOT NULL DEFAULT 0")
+    private int version;
+
+	public Long getId() {
         return id;
     }
 
@@ -63,6 +66,15 @@ public abstract class BaseEntity {
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
 
         return true;
+    }
+    
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     @Override

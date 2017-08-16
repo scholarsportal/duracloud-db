@@ -170,7 +170,7 @@ public class JpaAuditLogStoreTest extends JpaTestBase<JpaAuditLogItem>{
         JpaAuditLogItem freshItem = createMock(JpaAuditLogItem.class);
         expect(repo.findOne(eq(id))).andReturn(freshItem);
         freshItem.setContentProperties(serializedProps);
-        expectLastCall();
+        expectLastCall().once();
         expect(repo.saveAndFlush(freshItem)).andReturn(freshItem);
         replayAll();
         

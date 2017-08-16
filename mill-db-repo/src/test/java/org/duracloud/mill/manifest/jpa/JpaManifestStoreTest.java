@@ -95,20 +95,20 @@ public class JpaManifestStoreTest extends JpaTestBase<ManifestItem> {
         
         expect(returnItem.getContentChecksum()).andReturn("old checksum");
         returnItem.setContentChecksum(contentChecksum);
-        expectLastCall();
+        expectLastCall().once();
         expect(returnItem.getContentMimetype()).andReturn("old mimetype");
         returnItem.setContentMimetype(contentMimetype);
-        expectLastCall();
+        expectLastCall().once();
 
         expect(returnItem.getContentSize()).andReturn("old size");
         returnItem.setContentSize(contentSize);
-        expectLastCall();
+        expectLastCall().once();
 
         returnItem.setModified(timestamp);
-        expectLastCall();
+        expectLastCall().once();
         expect(returnItem.isDeleted()).andReturn(true);
         returnItem.setDeleted(false);
-        expectLastCall();
+        expectLastCall().once();
 
         expect(this.repo.findByAccountAndStoreIdAndSpaceIdAndContentId(account,
                                                                        storeId,
@@ -160,9 +160,9 @@ public class JpaManifestStoreTest extends JpaTestBase<ManifestItem> {
         expect(returnItem.isDeleted()).andReturn(false);
         expect(returnItem.getModified()).andReturn(new Date(System.currentTimeMillis() - 1000));
         returnItem.setModified(timestamp);
-        expectLastCall();
+        expectLastCall().once();
         returnItem.setDeleted(true);
-        expectLastCall();
+        expectLastCall().once();
         expect(this.repo.findByAccountAndStoreIdAndSpaceIdAndContentId(account,
                                                                        storeId,
                                                                        spaceId,
@@ -211,7 +211,7 @@ public class JpaManifestStoreTest extends JpaTestBase<ManifestItem> {
         createTestSubject();
         ManifestItem returnItem = createMock(ManifestItem.class);
         returnItem.setMissingFromStorageProvider(true);
-        expectLastCall();
+        expectLastCall().once();
         expect(this.repo.findByAccountAndStoreIdAndSpaceIdAndContentId(account,
                                                                        storeId,
                                                                        spaceId,

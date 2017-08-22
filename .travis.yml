@@ -11,8 +11,6 @@ notifications:
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y libaio1
-  - chmod +x resources/travis/*.sh
-  - ./resources/travis/before-install.sh
 install:
   - mvn install -DskipTests --batch-mode
 script:

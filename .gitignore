@@ -9,3 +9,4 @@
 *.ipr
 *.iws
 target/
+*.idea

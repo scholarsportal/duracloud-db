@@ -78,4 +78,16 @@ public class WriteOnlyStringSetTest {
         assertTrue(System.currentTimeMillis()-start < 20*1000);
     }
 
+
+    @Test
+    public void testStringConversionBugFix() throws Exception {
+        WriteOnlyStringSet set = new WriteOnlyStringSet(2);
+        String original = "cdf/Bag-cdf_8368.zip:322eb98df5965a2230c12268d9ea9684";
+        set.add(original);
+        String duplicate = "utkcomm/Bag-utkcomm_16230.zip:d0f56f9bc4da0d8ec6012001d21088f6";
+        set.add(duplicate);
+        assertEquals(2, set.size());
+    }
+
+
 }

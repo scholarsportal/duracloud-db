@@ -44,7 +44,7 @@ public class WriteOnlyStringSet {
     }
     
     private String getMd5String(String string) {
-        return  checksumBytesToString(MD5.digest(string.getBytes()));
+        return checksumBytesToString(MD5.digest(string.getBytes()));
     }
 
     /**

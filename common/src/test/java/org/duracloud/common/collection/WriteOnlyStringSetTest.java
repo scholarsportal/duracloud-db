@@ -78,7 +78,14 @@ public class WriteOnlyStringSetTest {
         assertTrue(System.currentTimeMillis()-start < 20*1000);
     }
 
-
+    /**
+     * Verifies that the error captured in https://jira.duraspace.org/browse/DURACHRON-201
+     * has been resolved. Prior to this change, the two Strings in this test were
+     * considered to have matching checksum values, and so would only result in 1 entry in
+     * the WriteOnlyStringSet rather than the expected 2.
+     *
+     * @throws Exception
+     */
     @Test
     public void testStringConversionBugFix() throws Exception {
         WriteOnlyStringSet set = new WriteOnlyStringSet(2);
@@ -88,6 +95,5 @@ public class WriteOnlyStringSetTest {
         set.add(duplicate);
         assertEquals(2, set.size());
     }
-
 
 }

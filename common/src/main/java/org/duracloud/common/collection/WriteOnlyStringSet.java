@@ -44,7 +44,23 @@ public class WriteOnlyStringSet {
     }
     
     private String getMd5String(String string) {
-        return new String(MD5.digest(string.getBytes()));
+        return checksumBytesToString(MD5.digest(string.getBytes()));
+    }
+
+    /**
+     * Converts a message digest byte array into a String based
+     * on the hex values appearing in the array.
+     */
+    public static String checksumBytesToString(byte[] digestBytes) {
+        StringBuffer hexString = new StringBuffer();
+        for (int i=0; i<digestBytes.length; i++) {
+            String hex=Integer.toHexString(0xff & digestBytes[i]);
+            if(hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return hexString.toString();
     }
 
     public boolean contains(String string){
@@ -57,7 +73,7 @@ public class WriteOnlyStringSet {
     }
 
     /**
-     * @param concat
+     * @param string
      */
     public boolean remove(String string) {
         return set.remove(getMd5String(string));

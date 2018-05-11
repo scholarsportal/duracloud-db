@@ -57,7 +57,7 @@ public class MillJpaRepoConfig {
                                                "?useLegacyDatetimeCode=false" +
                                                "&serverTimezone=GMT" +
                                                "&characterEncoding=utf8" +
-                                               "&characxterSetResults=utf8",
+                                               "&characterSetResults=utf8",
                                                env.getProperty("mill.db.host", "localhost"),
                                                env.getProperty("mill.db.port", "3306"),
                                                env.getProperty("mill.db.name", "mill")));

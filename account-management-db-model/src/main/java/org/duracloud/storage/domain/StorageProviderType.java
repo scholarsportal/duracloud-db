@@ -13,6 +13,7 @@ public enum StorageProviderType {
     SWIFT_S3("swift-s3"),
     IRODS("irods"),
     CHRONOPOLIS("chronopolis"),
+    LOCKSS("lockss"),
     UNKNOWN("unknown"),
     TEST_RETRY("test-retry"),
     TEST_VERIFY_CREATE("test-verify-create"),

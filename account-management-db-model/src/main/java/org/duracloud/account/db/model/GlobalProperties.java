@@ -103,22 +103,18 @@ public class GlobalProperties extends BaseEntity {
     }
 
     public Integer getRabbitmqPort() {
-
         return rabbitmqPort;
     }
 
     public void setRabbitmqPort(Integer rabbitmqPort) {
-
         this.rabbitmqPort = rabbitmqPort;
     }
 
     public String getRabbitmqVhost() {
-
         return rabbitmqVhost;
     }
 
     public void setRabbitmqVhost(String rabbitmqVhost) {
-
         this.rabbitmqVhost = rabbitmqVhost;
     }
 

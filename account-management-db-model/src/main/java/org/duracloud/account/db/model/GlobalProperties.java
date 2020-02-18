@@ -36,22 +36,22 @@ public class GlobalProperties extends BaseEntity {
     @Column(nullable = false)
     private String notifierType;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String rabbitmqHost;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer rabbitmqPort;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String rabbitmqVhost;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String rabbitmqExchange;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String rabbitmqUsername;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String rabbitmqPassword;
 
     public String getInstanceNotificationTopicArn() {

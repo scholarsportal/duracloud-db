@@ -30,34 +30,22 @@ public class DuracloudMill extends BaseEntity {
     private String dbPassword;
     @Column(nullable = false)
     private String auditQueue;
-    // Must specify column name explicitly because the number
-    // breaks the auto parsing from field name
-    @Column(nullable = false, name = "s3_type")
-    private String s3Type;
     @Column(nullable = false)
     private String auditLogSpaceId;
     @Column(nullable = false)
     private String auditQueueType;
-    @Column(nullable = false)
-    private String rabbitmqHost;
-    @Column(nullable = false)
-    private Integer rabbitmqPort;
-    @Column(nullable = false)
-    private String rabbitmqVhost;
-    @Column(nullable = false)
-    private String rabbitmqExchange;
-    @Column(nullable = false)
-    private String rabbitmqUsername;
-    @Column(nullable = false)
-    private String rabbitmqPassword;
-    @Column(nullable = false)
-    private String awsAccessKey;
-    @Column(nullable = false)
-    private String awsSecretKey;
-    @Column(nullable = false)
-    private String swiftEndpoint;
     @Column(nullable = true)
-    private String swiftSignerType;
+    private String rabbitmqHost;
+    @Column(nullable = true)
+    private Integer rabbitmqPort;
+    @Column(nullable = true)
+    private String rabbitmqVhost;
+    @Column(nullable = true)
+    private String rabbitmqExchange;
+    @Column(nullable = true)
+    private String rabbitmqUsername;
+    @Column(nullable = true)
+    private String rabbitmqPassword;
 
     public String getDbName() {
         return dbName;
@@ -105,14 +93,6 @@ public class DuracloudMill extends BaseEntity {
 
     public void setAuditQueue(String auditQueue) {
         this.auditQueue = auditQueue;
-    }
-
-    public String getS3Type() {
-        return s3Type;
-    }
-
-    public void setS3Type(String s3Type) {
-        this.s3Type = s3Type;
     }
 
     public String getAuditLogSpaceId() {
@@ -177,37 +157,5 @@ public class DuracloudMill extends BaseEntity {
 
     public void setRabbitmqPassword(String rabbitmqPassword) {
         this.rabbitmqPassword = rabbitmqPassword;
-    }
-
-    public String getAwsAccessKey() {
-        return awsAccessKey;
-    }
-
-    public void setAwsAccessKey(String awsAccessKey) {
-        this.awsAccessKey = awsAccessKey;
-    }
-
-    public String getAwsSecretKey() {
-        return awsSecretKey;
-    }
-
-    public void setAwsSecretKey(String awsSecretKey) {
-        this.awsSecretKey = awsSecretKey;
-    }
-
-    public String getSwiftEndpoint() {
-        return swiftEndpoint;
-    }
-
-    public void setSwiftEndpoint(String swiftEndpoint) {
-        this.swiftEndpoint = swiftEndpoint;
-    }
-
-    public String getSwiftSignerType() {
-        return swiftSignerType;
-    }
-
-    public void setSwiftSignerType(String swiftSignerType) {
-        this.swiftSignerType = swiftSignerType;
     }
 }

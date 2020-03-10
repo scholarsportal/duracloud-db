@@ -33,7 +33,7 @@ public class DuracloudMill extends BaseEntity {
     @Column(nullable = false)
     private String auditLogSpaceId;
     @Column(nullable = false)
-    private String auditQueueType;
+    private String queueType;
     @Column(nullable = true)
     private String rabbitmqHost;
     @Column(nullable = true)
@@ -103,12 +103,12 @@ public class DuracloudMill extends BaseEntity {
         this.auditLogSpaceId = auditLogSpaceId;
     }
 
-    public String getAuditQueueType() {
-        return auditQueueType;
+    public String getQueueType() {
+        return queueType;
     }
 
-    public void setAuditQueueType(String auditQueueType) {
-        this.auditQueueType = auditQueueType;
+    public void setQueueType(String queueType) {
+        this.queueType = queueType;
     }
 
     public String getRabbitmqHost() {

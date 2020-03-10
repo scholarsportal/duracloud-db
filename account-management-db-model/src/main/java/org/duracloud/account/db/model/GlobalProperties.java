@@ -21,7 +21,7 @@ public class GlobalProperties extends BaseEntity {
     /*
      * an SNS topic arn for sending noticiations to the instances
      */
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String instanceNotificationTopicArn;
 
     @Column(nullable = false)

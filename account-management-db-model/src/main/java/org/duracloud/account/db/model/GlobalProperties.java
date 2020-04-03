@@ -21,7 +21,7 @@ public class GlobalProperties extends BaseEntity {
     /*
      * an SNS topic arn for sending noticiations to the instances
      */
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String instanceNotificationTopicArn;
 
     @Column(nullable = false)
@@ -32,6 +32,27 @@ public class GlobalProperties extends BaseEntity {
 
     @Column(nullable = false)
     private String cloudFrontKeyPath;
+
+    @Column(nullable = false)
+    private String notifierType;
+
+    @Column(nullable = true)
+    private String rabbitmqHost;
+
+    @Column(nullable = true)
+    private Integer rabbitmqPort;
+
+    @Column(nullable = true)
+    private String rabbitmqVhost;
+
+    @Column(nullable = true)
+    private String rabbitmqExchange;
+
+    @Column(nullable = true)
+    private String rabbitmqUsername;
+
+    @Column(nullable = true)
+    private String rabbitmqPassword;
 
     public String getInstanceNotificationTopicArn() {
         return instanceNotificationTopicArn;
@@ -65,4 +86,59 @@ public class GlobalProperties extends BaseEntity {
         this.cloudFrontKeyPath = cloudFrontKeyPath;
     }
 
+    public String getNotifierType() {
+        return notifierType;
+    }
+
+    public void setNotifierType(String notifierType) {
+        this.notifierType = notifierType;
+    }
+
+    public String getRabbitmqHost() {
+        return rabbitmqHost;
+    }
+
+    public void setRabbitmqHost(String rabbitmqHost) {
+        this.rabbitmqHost = rabbitmqHost;
+    }
+
+    public Integer getRabbitmqPort() {
+        return rabbitmqPort;
+    }
+
+    public void setRabbitmqPort(Integer rabbitmqPort) {
+        this.rabbitmqPort = rabbitmqPort;
+    }
+
+    public String getRabbitmqVhost() {
+        return rabbitmqVhost;
+    }
+
+    public void setRabbitmqVhost(String rabbitmqVhost) {
+        this.rabbitmqVhost = rabbitmqVhost;
+    }
+
+    public String getRabbitmqExchange() {
+        return rabbitmqExchange;
+    }
+
+    public void setRabbitmqExchange(String rabbitmqExchange) {
+        this.rabbitmqExchange = rabbitmqExchange;
+    }
+
+    public String getRabbitmqUsername() {
+        return rabbitmqUsername;
+    }
+
+    public void setRabbitmqUsername(String rabbitmqUsername) {
+        this.rabbitmqUsername = rabbitmqUsername;
+    }
+
+    public String getRabbitmqPassword() {
+        return rabbitmqPassword;
+    }
+
+    public void setRabbitmqPassword(String rabbitmqPassword) {
+        this.rabbitmqPassword = rabbitmqPassword;
+    }
 }

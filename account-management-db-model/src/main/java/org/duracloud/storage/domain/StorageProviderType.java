@@ -10,8 +10,8 @@ package org.duracloud.storage.domain;
 public enum StorageProviderType {
     AMAZON_S3("amazon-s3"),
     AMAZON_GLACIER("amazon-glacier"),
+    SWIFT_S3("swift-s3"),
     IRODS("irods"),
-    DPN("dpn"),
     CHRONOPOLIS("chronopolis"),
     UNKNOWN("unknown"),
     TEST_RETRY("test-retry"),

@@ -4,14 +4,14 @@
   <parent>
     <groupId>org.duracloud.db</groupId>
     <artifactId>db</artifactId>
-    <version>6.2.0</version>
+    <version>7.0.0</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.duracloud.db</groupId>
   <artifactId>account-management-db-model</artifactId>
-  <version>6.2.0</version>
+  <version>7.0.0</version>
   <name>Account DB Model</name>
 
   <dependencies>

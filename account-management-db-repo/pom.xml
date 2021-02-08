@@ -6,14 +6,14 @@
   <parent>
     <groupId>org.duracloud.db</groupId>
     <artifactId>db</artifactId>
-    <version>6.2.0</version>
+    <version>7.0.0</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.duracloud.db</groupId>
   <artifactId>account-management-db-repo</artifactId>
-  <version>6.2.0</version>
+  <version>7.0.0</version>
   <name>Account DB Repositories</name>
 
   <dependencies>
@@ -48,6 +48,11 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
     </dependency>
 
   </dependencies>

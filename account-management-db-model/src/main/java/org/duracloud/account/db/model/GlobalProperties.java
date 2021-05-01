@@ -7,8 +7,12 @@
  */
 package org.duracloud.account.db.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  * A grab bag of global properties.
@@ -37,22 +41,11 @@ public class GlobalProperties extends BaseEntity {
     private String notifierType;
 
     @Column(nullable = true)
-    private String rabbitmqHost;
-
-    @Column(nullable = true)
-    private Integer rabbitmqPort;
-
-    @Column(nullable = true)
-    private String rabbitmqVhost;
-
-    @Column(nullable = true)
     private String rabbitmqExchange;
 
-    @Column(nullable = true)
-    private String rabbitmqUsername;
-
-    @Column(nullable = true)
-    private String rabbitmqPassword;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = true)
+    @JoinColumn(name = "rabbitmq_config_id", nullable = true)
+    private RabbitMQConfig rabbitmqConfig;
 
     public String getInstanceNotificationTopicArn() {
         return instanceNotificationTopicArn;
@@ -94,30 +87,6 @@ public class GlobalProperties extends BaseEntity {
         this.notifierType = notifierType;
     }
 
-    public String getRabbitmqHost() {
-        return rabbitmqHost;
-    }
-
-    public void setRabbitmqHost(String rabbitmqHost) {
-        this.rabbitmqHost = rabbitmqHost;
-    }
-
-    public Integer getRabbitmqPort() {
-        return rabbitmqPort;
-    }
-
-    public void setRabbitmqPort(Integer rabbitmqPort) {
-        this.rabbitmqPort = rabbitmqPort;
-    }
-
-    public String getRabbitmqVhost() {
-        return rabbitmqVhost;
-    }
-
-    public void setRabbitmqVhost(String rabbitmqVhost) {
-        this.rabbitmqVhost = rabbitmqVhost;
-    }
-
     public String getRabbitmqExchange() {
         return rabbitmqExchange;
     }
@@ -126,19 +95,51 @@ public class GlobalProperties extends BaseEntity {
         this.rabbitmqExchange = rabbitmqExchange;
     }
 
-    public String getRabbitmqUsername() {
-        return rabbitmqUsername;
+    public RabbitMQConfig getRabbitmqConfig() {
+        return rabbitmqConfig;
     }
 
-    public void setRabbitmqUsername(String rabbitmqUsername) {
-        this.rabbitmqUsername = rabbitmqUsername;
+    public void setRabbitmqConfig(RabbitMQConfig rabbitmqConfig) {
+        this.rabbitmqConfig = rabbitmqConfig;
+    }
+
+    public String getRabbitmqHost() {
+        return rabbitmqConfig.getHost();
+    }
+
+    public void setRabbitmqHost(String host) {
+        this.rabbitmqConfig.setHost(host);
+    }
+
+    public Integer getRabbitmqPort() {
+        return rabbitmqConfig.getPort();
+    }
+
+    public void setRabbitmqPort(Integer port) {
+        this.rabbitmqConfig.setPort(port);
+    }
+
+    public String getRabbitmqVhost() {
+        return rabbitmqConfig.getVhost();
+    }
+
+    public void setRabbitmqVhost(String vhost) {
+        this.rabbitmqConfig.setVhost(vhost);
+    }
+
+    public String getRabbitmqUsername() {
+        return rabbitmqConfig.getUsername();
+    }
+
+    public void setRabbitmqUsername(String username) {
+        this.rabbitmqConfig.setUsername(username);
     }
 
     public String getRabbitmqPassword() {
-        return rabbitmqPassword;
+        return rabbitmqConfig.getPassword();
     }
 
-    public void setRabbitmqPassword(String rabbitmqPassword) {
-        this.rabbitmqPassword = rabbitmqPassword;
+    public void setRabbitmqPassword(String password) {
+        this.rabbitmqConfig.setPassword(password    );
     }
 }

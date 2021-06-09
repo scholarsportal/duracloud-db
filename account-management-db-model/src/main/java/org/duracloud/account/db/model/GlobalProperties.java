@@ -87,6 +87,9 @@ public class GlobalProperties extends BaseEntity {
         this.notifierType = notifierType;
     }
 
+    // rabbitmqExchange will always differ for both
+    // GlobalProperties/DuracloudMill config, so it makes
+    // sense to keep this here, rather than in RabbitMQConfig
     public String getRabbitmqExchange() {
         return rabbitmqExchange;
     }
@@ -101,45 +104,5 @@ public class GlobalProperties extends BaseEntity {
 
     public void setRabbitmqConfig(RabbitMQConfig rabbitmqConfig) {
         this.rabbitmqConfig = rabbitmqConfig;
-    }
-
-    public String getRabbitmqHost() {
-        return rabbitmqConfig.getHost();
-    }
-
-    public void setRabbitmqHost(String host) {
-        this.rabbitmqConfig.setHost(host);
-    }
-
-    public Integer getRabbitmqPort() {
-        return rabbitmqConfig.getPort();
-    }
-
-    public void setRabbitmqPort(Integer port) {
-        this.rabbitmqConfig.setPort(port);
-    }
-
-    public String getRabbitmqVhost() {
-        return rabbitmqConfig.getVhost();
-    }
-
-    public void setRabbitmqVhost(String vhost) {
-        this.rabbitmqConfig.setVhost(vhost);
-    }
-
-    public String getRabbitmqUsername() {
-        return rabbitmqConfig.getUsername();
-    }
-
-    public void setRabbitmqUsername(String username) {
-        this.rabbitmqConfig.setUsername(username);
-    }
-
-    public String getRabbitmqPassword() {
-        return rabbitmqConfig.getPassword();
-    }
-
-    public void setRabbitmqPassword(String password) {
-        this.rabbitmqConfig.setPassword(password    );
     }
 }

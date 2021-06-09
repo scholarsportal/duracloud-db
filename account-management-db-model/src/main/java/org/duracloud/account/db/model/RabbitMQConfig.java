@@ -1,54 +1,50 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The contents of this file are subject to the license and copyright
+ * detailed in the LICENSE and NOTICE files at the root of the source
+ * tree and available online at
+ *
+ *     http://duracloud.org/license/
  */
 package org.duracloud.account.db.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
  * A class of RabbitMQ configuration parameters.
  *
- * @author Andy Foster Date: 2021/05/06
+ * @author Andy Foster
+ * Date: 2021/05/06
  */
 @Entity
 @Table(name = "rabbitmq_config")
-public class RabbitMQConfig extends BaseEntity {
+public class RabbitMQConfig {
 
-    @Column(nullable = true)
+    // We do not extend BaseEntity, because we
+    // don't want auto-incrementing IDs.
+    @Id
+    @Column(nullable = false)
+    protected Long id;
+
+    @Column(nullable = false)
     private String host;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private Integer port;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String vhost;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String username;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String password;
 
-    @OneToOne(fetch = FetchType.EAGER,
-              cascade = CascadeType.ALL,
-              mappedBy = "rabbitmqConfig")
-    private GlobalProperties globalProperties;
-
-    public RabbitMQConfig() {
-
+    public Long getId() {
+        return id;
     }
 
-    public RabbitMQConfig(String host, Integer port,
-                          String vhost, String username,
-                          String password) {
-        this.host = host;
-        this.port = port;
-        this.vhost = vhost;
-        this.username  = username;
-        this.password = password;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getHost() {

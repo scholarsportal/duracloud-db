@@ -45,7 +45,7 @@ public class GlobalProperties extends BaseEntity {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = true)
     @JoinColumn(name = "rabbitmq_config_id", nullable = true)
-    private RabbitMQConfig rabbitmqConfig;
+    private RabbitmqConfig rabbitmqConfig;
 
     public String getInstanceNotificationTopicArn() {
         return instanceNotificationTopicArn;
@@ -89,7 +89,7 @@ public class GlobalProperties extends BaseEntity {
 
     // rabbitmqExchange will always differ for both
     // GlobalProperties/DuracloudMill config, so it makes
-    // sense to keep this here, rather than in RabbitMQConfig
+    // sense to keep this here, rather than in RabbitmqConfig
     public String getRabbitmqExchange() {
         return rabbitmqExchange;
     }
@@ -98,11 +98,11 @@ public class GlobalProperties extends BaseEntity {
         this.rabbitmqExchange = rabbitmqExchange;
     }
 
-    public RabbitMQConfig getRabbitmqConfig() {
+    public RabbitmqConfig getRabbitmqConfig() {
         return rabbitmqConfig;
     }
 
-    public void setRabbitmqConfig(RabbitMQConfig rabbitmqConfig) {
+    public void setRabbitmqConfig(RabbitmqConfig rabbitmqConfig) {
         this.rabbitmqConfig = rabbitmqConfig;
     }
 }

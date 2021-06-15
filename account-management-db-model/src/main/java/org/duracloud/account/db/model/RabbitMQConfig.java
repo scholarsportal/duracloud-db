@@ -20,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "rabbitmq_config")
-public class RabbitMQConfig {
+public class RabbitmqConfig {
 
     // We do not extend BaseEntity, because we
     // don't want auto-incrementing IDs.

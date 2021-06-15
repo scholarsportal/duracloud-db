@@ -43,7 +43,7 @@ public class DuracloudMill extends BaseEntity {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = true)
     @JoinColumn(name = "rabbitmq_config_id", nullable = true)
-    private RabbitMQConfig rabbitmqConfig;
+    private RabbitmqConfig rabbitmqConfig;
 
     public String getDbName() {
         return dbName;
@@ -111,7 +111,7 @@ public class DuracloudMill extends BaseEntity {
 
     // rabbitmqExchange will always differ for both
     // GlobalProperties/DuracloudMill config, so it makes
-    // sense to keep this here, rather than in RabbitMQConfig
+    // sense to keep this here, rather than in RabbitmqConfig
     public String getRabbitmqExchange() {
         return rabbitmqExchange;
     }
@@ -120,11 +120,11 @@ public class DuracloudMill extends BaseEntity {
         this.rabbitmqExchange = rabbitmqExchange;
     }
 
-    public RabbitMQConfig getRabbitmqConfig() {
+    public RabbitmqConfig getRabbitmqConfig() {
         return rabbitmqConfig;
     }
 
-    public void setRabbitmqConfig(RabbitMQConfig rabbitmqConfig) {
+    public void setRabbitmqConfig(RabbitmqConfig rabbitmqConfig) {
         this.rabbitmqConfig = rabbitmqConfig;
     }
 }
